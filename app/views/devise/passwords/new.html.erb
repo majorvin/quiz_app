@@ -1,0 +1,19 @@
+<section id="loginBox">
+  <h2 class="text-center">Forgot your password?</h2>
+
+  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+    <%= devise_error_messages! %>
+
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="mdi-communication-email"></i>
+      </span>
+      <input type="email" id="user_email" name="user[email]" class= "form-control floating-label" placeholder= "Email" autofocus="autofocus">
+    </div>
+
+    <button class="btn btn-block btn-primary waves-effect waves-light" type="submit" name="action">Send me reset password instructions</button>
+  <% end %>
+
+  <hr />
+  <%= render "devise/shared/links" %>
+</section>

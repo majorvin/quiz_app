@@ -4,4 +4,11 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :authenticate_user!
+
+  def authorized?
+    if !current_user.admin?
+      flash[:error] = "You are not authorized to view that page."
+      redirect_to root_path
+    end
+  end
 end

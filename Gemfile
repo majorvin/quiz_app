@@ -11,6 +11,10 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'devise'
 gem 'bower-rails'
 gem "paranoia", "~> 2.0"
+gem 'angular_rails_csrf'
+gem 'angular-rails-templates'
+gem 'sprockets', '2.12.3'
+gem 'active_model_serializers'
 
 group :development, :test do
   gem 'pry'

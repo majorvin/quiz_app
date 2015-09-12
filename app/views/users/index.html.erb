@@ -1,0 +1,55 @@
+<div ng-controller="UsersController">
+  <div class="col-sm-offset-9 col-xs-offset-6 col-md-offset-9">
+    <form class="" role="search" ng-submit="search(searchTerm)">
+      <input type="search" class="form-control" placeholder="Search" name="searchTerm" id="searchTerm" ng-model="searchTerm" ng-change="search()">
+   </form>
+  </div>
+  <br />
+  <div class="table-responsive">
+    <table class="table table-striped table-hover table-bordered">
+      <thead>
+        <tr>
+          <th>Email</th>
+          <th style="width: 60px;">Locked</th>
+          <th style="width: 60px;">Actions</th>
+        </tr>
+      </thead>
+      <tbody data-link="row" class="rowlink">
+        <tr ng-repeat="user in users">
+          <td class="vert-align">
+            <a ui-sref="userDetail({ id: user.id })">{{user.email}}</a>
+          </td>
+          <td class="rowlink-skip text-center">
+            <div ng-show="user.locked">
+              <i class="glyphicon glyphicon-ok"></i>
+            </div>
+          </td>
+          <td class="rowlink-skip text-center vert-middle">
+            <a ui-sref="userDetail({ id: user.id })" class="btn bootstrap">
+              <i class="glyphicon glyphicon-edit text-primary"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="row">
+    <div class="text-center">
+      Showing {{showFrom()}} to {{showTo()}} of {{totalItems}} entries
+    </div>
+
+    <div class="text-center">
+      <pagination
+        class="pagination-sm"
+        ng-model="currentPage"
+        boundary-links="true"
+        total-items="totalItems"
+        max-size="maxSize"
+        rotate="false"
+        items-per-page="numPerPage"
+        ng-change="pageChanged()"
+      >
+      </pagination>
+    </div>
+  </div>
+</div>

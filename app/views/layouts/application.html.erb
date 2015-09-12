@@ -7,6 +7,8 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <%= render "layouts/header" unless !current_user %>
+
   <div class="container">
     <% if notice.present? %>
      <aside class="alert alert-info">

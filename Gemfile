@@ -10,6 +10,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'devise'
 gem 'bower-rails'
+gem "paranoia", "~> 2.0"
 
 group :development, :test do
   gem 'pry'

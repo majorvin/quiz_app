@@ -8,21 +8,35 @@
       <span class="input-group-addon">
         <i class="mdi-communication-email"></i>
       </span>
-      <input type="email" id="user_email" name="user[email]" class= "form-control floating-label" placeholder= "Email" autofocus="autofocus">
+      <input type="email" id="user_email" name="user[email]" class= "form-control floating-label" placeholder= "Email" autofocus="autofocus" required>
+    </div>
+
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="mdi-social-person"></i>
+      </span>
+      <input type="text" id="user_first_name" name="user[first_name]" class= "form-control floating-label" placeholder= "First Name" autofocus="autofocus" required>
+    </div>
+
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="mdi-social-person"></i>
+      </span>
+      <input type="text" id="user_last_name" name="user[last_name]" class= "form-control floating-label" placeholder= "Last Name" autofocus="autofocus" required>
     </div>
 
     <div class="input-group">
       <span class="input-group-addon">
         <i class="mdi-communication-vpn-key"></i>
       </span>
-      <input type="password" id="user_password" name="user[password]" class= "form-control floating-label" placeholder= "Password (8 characters minimum)" autocomplete="off">
+      <input type="password" id="user_password" name="user[password]" class= "form-control floating-label" placeholder= "Password (8 characters minimum)" autocomplete="off" required>
     </div>
 
     <div class="input-group">
       <span class="input-group-addon">
         <i class="mdi-communication-vpn-key"></i>
       </span>
-      <input type="password" id="password_confirmation" name="user[password_confirmation]" class= "form-control floating-label" placeholder= "Password Confirmation" autocomplete="off">
+      <input type="password" id="password_confirmation" name="user[password_confirmation]" class= "form-control floating-label" placeholder= "Password Confirmation" autocomplete="off" required>
     </div>
 
     <button class="btn btn-block btn-primary waves-effect waves-light" type="submit" name="commit">SIGN UP</button>

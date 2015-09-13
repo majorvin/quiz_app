@@ -11,6 +11,20 @@
       <%= f.email_field :email, class: "form-control floating-label", placeholder: "Email", autofocus: true %>
     </div>
 
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="mdi-social-person"></i>
+      </span>
+      <%= f.text_field :first_name, class: "form-control floating-label", placeholder: "First Name", autofocus: true %>
+    </div>
+
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="mdi-social-person"></i>
+      </span>
+      <%= f.text_field :last_name, class: "form-control floating-label", placeholder: "Last Name", autofocus: true %>
+    </div>
+
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
       <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
     <% end %>

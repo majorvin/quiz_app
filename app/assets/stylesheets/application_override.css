@@ -1,5 +1,20 @@
+.table thead>tr>th {
+  text-align: center;
+}
+
+/* Override bootstrap */
+.table > tbody > tr > td {
+ vertical-align: middle;
+}
+
 .form-control-wrapper {
   margin: 20px 0;
+}
+
+/* Disable the materialize default btn css */
+.btn.bootstrap {
+  padding: 6px 12px;
+  margin: 0px 0px;
 }
 
 section#loginBox {

@@ -2,6 +2,10 @@
   "name": "dsl-generated dependencies",
   "dependencies": {
     "bootstrap-material-design": "latest",
-    "bootstrap": "latest"
+    "bootstrap": "latest",
+    "angular": "latest",
+    "angular-animate": "latest",
+    "jasny-bootstrap": "latest",
+    "angular-bootstrap": "latest"
   }
 }

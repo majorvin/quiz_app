@@ -1,2 +1,6 @@
 asset 'bootstrap-material-design'
 asset 'bootstrap'
+asset 'angular'
+asset 'angular-animate'
+asset 'jasny-bootstrap'
+asset 'angular-bootstrap'

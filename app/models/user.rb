@@ -5,4 +5,6 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   acts_as_paranoid
+
+  scope :where_email_like, -> (text) { where("email ilike ?", "%#{text}%") }
 end

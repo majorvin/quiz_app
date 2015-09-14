@@ -1,6 +1,6 @@
-angular.module('quizzer').controller('UsersController', UsersController);
+angular.module('quizzer').controller('UserListController', UserListController);
 
-function UsersController($scope, usersService) {
+function UserListController($scope, userService) {
   initialize();
   $scope.users = [];
   $scope.currentPage = 1;
@@ -44,7 +44,7 @@ function UsersController($scope, usersService) {
       keywords: $scope.searchTerm
     };
 
-    usersService.getAllUsers(params)
+    userService.getAllUsers(params)
       .then(function(response) {
         $scope.users = response.data.users;
         $scope.totalItems = response.data.meta.total_count;
@@ -52,7 +52,7 @@ function UsersController($scope, usersService) {
   };
 
   function initialize() {
-    usersService.getAllUsers()
+    userService.getAllUsers()
       .then(function(response) {
         $scope.users = response.data.users;
         $scope.totalItems = response.data.meta.total_count;

@@ -20,4 +20,5 @@
 //= require angular-rails-templates
 //= require jasny-bootstrap
 //= require angular-bootstrap
+//= require sweetalert
 //= require_tree .

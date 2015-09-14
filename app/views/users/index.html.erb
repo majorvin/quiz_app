@@ -1,4 +1,9 @@
 <div ng-controller="UserListController">
+  <ul class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li class="active">Users</li>
+  </ul>
+
   <div class="col-sm-offset-9 col-xs-offset-6 col-md-offset-9">
     <form class="" role="search" ng-submit="search(searchTerm)">
       <input type="search" class="form-control" placeholder="Search" name="searchTerm" id="searchTerm" ng-model="searchTerm" ng-change="search()">

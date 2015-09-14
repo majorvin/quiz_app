@@ -13,6 +13,7 @@
  *= require bootstrap/dist/css/bootstrap
  *= require bootstrap-material-design
  *= require jasny-bootstrap
+ *= require sweetalert
  *= require_self
  *= require_tree .
  */

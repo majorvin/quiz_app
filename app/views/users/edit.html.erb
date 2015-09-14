@@ -1,0 +1,44 @@
+<div ng-controller="UserController">
+  <script>
+    <%= render "user_service.js.erb" %>
+  </script>
+
+  <section id="loginBox">
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="mdi-communication-email"></i>
+      </span>
+      <input type="email" class= "form-control floating-label" placeholder= "Email" ng-model="user.email" autofocus required>
+    </div>
+
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="mdi-social-person"></i>
+      </span>
+      <input type="text" class= "form-control floating-label" placeholder= "First Name" ng-model="user.first_name" required>
+    </div>
+
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="mdi-social-person"></i>
+      </span>
+      <input type="text" class= "form-control floating-label" placeholder= "Last Name" ng-model="user.last_name" required>
+    </div>
+
+    <div class="col-sm-offset-2 col-xs-offset-2">
+      <div class="togglebutton">
+        <label>
+          <input type="checkbox" ng-model="user.admin"> Admin
+        </label>
+      </div>
+
+      <div class="togglebutton">
+        <label>
+          <input type="checkbox" ng-model="user.deleted_at"> Locked?
+        </label>
+      </div>
+    </div>
+
+    <button class="btn btn-block btn-primary waves-effect waves-light" type="submit" ng-click="submit()">Update</button>
+  </section>
+</div>

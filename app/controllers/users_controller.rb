@@ -12,4 +12,23 @@ class UsersController < ApplicationController
       format.json { render json: @users, meta: { total_count: @all_users.count } }
     end
   end
+
+  def edit
+    @user = User.with_deleted.find(params[:id])
+  end
+
+  def update
+    @user = User.with_deleted.find(params[:id])
+    params[:user][:deleted_at] = params[:deleted_at] ? DateTime.now : nil
+
+    if @user.update_attributes(user_params)
+      render nothing: true, status: 204
+    end
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:email, :admin, :deleted_at, :first_name, :last_name)
+  end
 end

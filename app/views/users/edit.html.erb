@@ -3,6 +3,12 @@
     <%= render "user_service.js.erb" %>
   </script>
 
+  <ul class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li><a href="/users">Users</a></li>
+    <li class="active">User #{{user.id}}</li>
+  </ul>
+
   <section id="loginBox">
     <div class="input-group">
       <span class="input-group-addon">

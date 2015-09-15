@@ -11,5 +11,9 @@ function categoryService($http) {
     createCategory: function(params) {
       return $http.post("/question_set/categories.json", params);
     },
+
+    updateCategory: function(params) {
+      return $http.put("/question_set/categories/" + params.category.id + ".json", params);
+    },
   };
 };

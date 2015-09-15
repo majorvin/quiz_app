@@ -1,0 +1,12 @@
+<div ng-controller="CategoryController"
+     ng-init="init('<%= @category.id %>', '<%= @category.name %>', '<%= @category.enabled %>', '<%= @category.max_question %>')">
+
+  <ul class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li><a href="/question_set/categories">Categories</a></li>
+    <li class="active">Category {{category.id}}</li>
+  </ul>
+  <br />
+
+  <%= render "form" %>
+</div>

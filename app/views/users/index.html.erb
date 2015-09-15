@@ -5,9 +5,7 @@
   </ul>
 
   <div class="col-sm-offset-9 col-xs-offset-6 col-md-offset-9">
-    <form class="" role="search" ng-submit="search(searchTerm)">
-      <input type="search" class="form-control" placeholder="Search" name="searchTerm" id="searchTerm" ng-model="searchTerm" ng-change="search()">
-   </form>
+    <input type="search" class="form-control" placeholder="Search" name="searchTerm" id="searchTerm" ng-model="searchTerm" ng-change="search()">
   </div>
   <br />
   <div class="table-responsive">
@@ -22,7 +20,7 @@
       <tbody data-link="row" class="rowlink">
         <tr ng-repeat="user in users">
           <td class="vert-align">
-            <a ui-sref="userDetail({ id: user.id })">{{user.email}}</a>
+            <a ng-href="/users/{{user.id}}/edit">{{user.email}}</a>
           </td>
           <td class="rowlink-skip text-center">
             <div ng-show="user.locked">

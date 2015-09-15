@@ -16,10 +16,26 @@ class QuestionSet::CategoriesController < ApplicationController
   end
 
   def create
-    @category =  QuestionSet::Category.create(category_params)
+    @category = QuestionSet::Category.create(category_params)
 
     if @category.save
+      flash[:notice] = 'Category was successfully created.'
       render json: { id: @category.id }
+    else
+      render json: { errors: @category.errors.to_a }, status: :unprocessable_entity
+    end
+  end
+
+  def edit
+    @category = QuestionSet::Category.find(params[:id])
+  end
+
+  def update
+    @category = QuestionSet::Category.find(params[:id])
+
+    if @category.update(category_params)
+      flash[:notice] = 'Category was successfully updated.'
+      render nothing: true, status: 204
     else
       render json: { errors: @category.errors.to_a }, status: :unprocessable_entity
     end

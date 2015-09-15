@@ -1,12 +1,12 @@
-angular.module('quizzer').controller('UserListController', UserListController);
+angular.module("quizzer").controller("CategoryListController", CategoryListController);
 
-function UserListController($scope, userService) {
+
+function CategoryListController($scope, categoryService) {
   initialize();
-  $scope.users = [];
+  $scope.categories = [];
   $scope.currentPage = 1;
   $scope.numPerPage = 25;
   $scope.maxSize = 5;
-  $scope.totalItems = 0;
 
   $scope.search = function() {
     $scope.currentPage = 1;
@@ -18,7 +18,7 @@ function UserListController($scope, userService) {
   $scope.showFrom = function () {
     var number = 0;
 
-    if ($scope.users.length > 0) {
+    if ($scope.categories.length > 0) {
       number = ($scope.currentPage * $scope.numPerPage) - $scope.numPerPage + 1
     }
 
@@ -30,8 +30,8 @@ function UserListController($scope, userService) {
   $scope.showTo = function() {
     var number = $scope.currentPage * $scope.numPerPage;
 
-    if ($scope.users.length < $scope.numPerPage) {
-      number = $scope.users.length;
+    if ($scope.categories.length < $scope.numPerPage) {
+      number = $scope.categories.length;
     }
 
     return number;
@@ -44,17 +44,17 @@ function UserListController($scope, userService) {
       keywords: $scope.searchTerm
     };
 
-    userService.getAllUsers(params)
+    categoryService.getAllCategories(params)
       .then(function(response) {
-        $scope.users = response.data.users;
+        $scope.categories = response.data.categories;
         $scope.totalItems = response.data.meta.total_count;
     });
   };
 
   function initialize() {
-    userService.getAllUsers()
+    categoryService.getAllCategories()
       .then(function(response) {
-        $scope.users = response.data.users;
+        $scope.categories = response.data.categories;
         $scope.totalItems = response.data.meta.total_count;
     });
   };

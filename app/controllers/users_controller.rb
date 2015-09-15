@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
   def index
     @page = (params[:page] || 0).to_i
-    @page_size = (params[:page_size] || 10).to_i
+    @page_size = (params[:page_size] || 25).to_i
     @all_users = User.with_deleted.where_email_like(params[:keywords])
     @users = @all_users.offset(@page_size * @page).limit(@page_size).order("email")
 
@@ -22,6 +22,7 @@ class UsersController < ApplicationController
     params[:user][:deleted_at] = params[:deleted_at] ? DateTime.now : nil
 
     if @user.update_attributes(user_params)
+      flash[:notice] = 'User was successfully updated.'
       render nothing: true, status: 204
     end
   end

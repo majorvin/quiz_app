@@ -1,17 +1,13 @@
 angular.module('quizzer').controller('UserController', UserController);
 
-function UserController($scope, userService, userInitializer) {
+function UserController($scope, $window, userService, userInitializer) {
   $scope.user = userInitializer;
   initialize();
 
   $scope.submit = function() {
     userService.updateUser($scope.user)
       .then(function(response) {
-        swal({
-          title: "Updated!",
-          type: "success",
-          allowOutsideClick: true
-        });
+        $window.location.href = "/users";
       });
   }
 

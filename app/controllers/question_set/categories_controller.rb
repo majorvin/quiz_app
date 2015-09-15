@@ -12,9 +12,22 @@ class QuestionSet::CategoriesController < ApplicationController
     end
   end
 
+  def new
+  end
+
+  def create
+    @category =  QuestionSet::Category.create(category_params)
+
+    if @category.save
+      render json: { id: @category.id }
+    else
+      render json: { errors: @category.errors.to_a }, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def category_params
-    params.require(:category).permit(:name, :max_question, :enable)
+    params.require(:category).permit(:name, :max_question, :enabled)
   end
 end

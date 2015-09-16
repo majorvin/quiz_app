@@ -8,6 +8,7 @@ function QuestionController($scope, $modalInstance, $window, categoryId, questio
 
   $scope.categoryId = categoryId;
   $scope.errors = [];
+  $scope.showError = false;
 
   $scope.hideDeletedChoice = function(choice) {
     return !choice._destroy;
@@ -35,11 +36,16 @@ function QuestionController($scope, $modalInstance, $window, categoryId, questio
       question: {
         text: $scope.text,
         category_id: $scope.categoryId,
-        // choices_attributes: $scope.choices
+        choices_attributes: $scope.choices
       }
     };
 
-    angular.isUndefined(question) ? create(params) : update(params);
+    if (angular.isUndefined(question)) {
+      create(params)
+    } else {
+      params.question.id = question.id;
+      update(params);
+    }
   };
 
   $scope.setAnswer = function(choice) {
@@ -56,6 +62,7 @@ function QuestionController($scope, $modalInstance, $window, categoryId, questio
 
   function preFillForm() {
     if (angular.isDefined(question)) {
+
       $scope.title = "Update Question";
       $scope.text =  question.text;
       $scope.choices = question.choices;
@@ -93,14 +100,7 @@ function QuestionController($scope, $modalInstance, $window, categoryId, questio
     questionService.updateQuestion(question.id, params)
       .then(function() {
         $modalInstance.close("ok");
-        $state.go($state.current, {}, {reload: true})
-          .then(function() {
-            swal({
-              title: "Updated!",
-              type: "success",
-              allowOutsideClick: true
-            });
-          });
+        $window.location.reload();
       }, function(response) {
         $scope.showError = true;
         $scope.errors = response.data.errors;

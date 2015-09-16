@@ -13,7 +13,7 @@ function CategoryController($scope, $window, $modal, categoryService) {
     });
   };
 
-  $scope.submitQuestion = function () {
+  $scope.submitQuestion = function (questionId) {
     var modalInstance = $modal.open({
       animation: true,
       templateUrl: 'question-form.html',
@@ -24,16 +24,15 @@ function CategoryController($scope, $window, $modal, categoryService) {
           return $scope.category.id;
         },
         question: function(questionService) {
-          return undefined;
-        //   if (angular.isDefined(questionId)) {
-        //     return questionService.getQuestion(questionId)
-        //       .then(function(response) {
-        //         return response.data.question
-        //       });
-        //   }
-        //   else {
-        //     undefined;
-        //   }
+          if (angular.isDefined(questionId)) {
+            return questionService.getQuestion(questionId)
+              .then(function(response) {
+                return response.data.question
+              });
+          }
+          else {
+            undefined;
+          }
         }
       }
     });

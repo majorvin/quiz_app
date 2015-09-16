@@ -9,6 +9,10 @@ class QuestionSet::QuestionsController < ApplicationController
   #   respond_with @questions, meta: { total_count: @category_questions.count }
   # end
 
+  def show
+    render json: QuestionSet::Question.find(params[:id])
+  end
+
   def create
     @question =  QuestionSet::Question.create(question_params)
 
@@ -20,15 +24,16 @@ class QuestionSet::QuestionsController < ApplicationController
     end
   end
 
-  # def update
-  #   @question = QuestionSet::Question.find(params[:id])
+  def update
+    @question = QuestionSet::Question.find(params[:id])
 
-  #   if @question.update(question_params)
-  #     render nothing: true, status: 204
-  #   else
-  #     render json: { errors: @question.errors.to_a }, status: :unprocessable_entity
-  #   end
-  # end
+    if @question.update(question_params)
+      flash[:notice] = 'Question was successfully updated.'
+      render nothing: true, status: 204
+    else
+      render json: { errors: @question.errors.to_a }, status: :unprocessable_entity
+    end
+  end
 
   # # Archive a question
   # def archive

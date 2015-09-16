@@ -37,12 +37,12 @@
       <tbody data-link="row" class="rowlink">
         <tr ng-repeat="question in questions">
           <td class="vert-align">
-            <a ng-click="submitQuestion(category.id, question.id)">
+            <a ng-click="submitQuestion(question.id)">
               {{question.text}}
             </a>
           </td>
           <td class="rowlink-skip">
-            <a ng-click="submitQuestion(category.id, question.id)" class="btn bootstrap">
+            <a ng-click="submitQuestion(question.id)" class="btn bootstrap">
               <i class="glyphicon glyphicon-edit"></i>
             </a>
             <a class="btn bootstrap" ng-click="archiveQuestion(question.id)">

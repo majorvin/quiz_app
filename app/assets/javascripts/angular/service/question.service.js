@@ -8,8 +8,16 @@ function questionservice($http) {
       return $http.get("/question_set/questions.json", { params: params });
     },
 
+    getQuestion: function(id) {
+      return $http.get("/question_set/questions/" + id + ".json");
+    },
+
     createQuestion: function(params) {
       return $http.post("/question_set/questions.json", params);
+    },
+
+    updateQuestion: function(question) {
+      return $http.put("/question_set/questions/" + params.question.id + ".json", params);
     },
   };
 };

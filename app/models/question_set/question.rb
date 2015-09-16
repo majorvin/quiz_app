@@ -1,9 +1,9 @@
 class QuestionSet::Question < ActiveRecord::Base
-  # before_save :atleast_two_choices
+  before_save :atleast_two_choices
 
   belongs_to :category, class_name: "QuestionSet::Category", inverse_of: :questions
-  # has_many :choices, class_name: "QuestionSet::Choice", inverse_of: :question
-  # accepts_nested_attributes_for :choices, allow_destroy: true, reject_if: :reject_question
+  has_many :choices, class_name: "QuestionSet::Choice", inverse_of: :question
+  accepts_nested_attributes_for :choices, allow_destroy: true, reject_if: :reject_question
 
   validates :text, presence: true
 

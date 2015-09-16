@@ -1,17 +1,42 @@
 angular.module("quizzer").controller("CategoryController", CategoryController);
 
 
-function CategoryController($scope, $window, categoryService) {
+function CategoryController($scope, $window, $modal, categoryService) {
   $scope.category = {};
   $scope.onlyNumbers = /^\d+$/;
 
-  $scope.init = function(id, name, enabled, max_question) {
-    $scope.category = {
-      id: id,
-      name: name,
-      enabled: enabled === "true" ? true : false,
-      max_question: max_question
-    }
+  $scope.init = function(id) {
+    categoryService.getCategory(id)
+      .then(function(response) {
+        $scope.category = response.data.category;
+        $scope.questions = $scope.category.questions;
+    });
+  };
+
+  $scope.submitQuestion = function () {
+    var modalInstance = $modal.open({
+      animation: true,
+      templateUrl: 'question-form.html',
+      controller: 'QuestionController',
+      size: 'lg',
+      resolve: {
+        categoryId: function() {
+          return $scope.category.id;
+        },
+        question: function(questionService) {
+          return undefined;
+        //   if (angular.isDefined(questionId)) {
+        //     return questionService.getQuestion(questionId)
+        //       .then(function(response) {
+        //         return response.data.question
+        //       });
+        //   }
+        //   else {
+        //     undefined;
+        //   }
+        }
+      }
+    });
   };
 
   $scope.submitCategory = function(invalid) {
@@ -21,7 +46,7 @@ function CategoryController($scope, $window, categoryService) {
       category: $scope.category
     };
 
-    $window.location.pathname.includes("/edit/") ? updateCategory(params) : createCategory(params)
+    $window.location.pathname.includes("/edit") ? updateCategory(params) : createCategory(params)
   };
 
   function createCategory(params) {

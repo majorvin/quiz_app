@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150914202740) do
+ActiveRecord::Schema.define(version: 20150915212745) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,17 @@ ActiveRecord::Schema.define(version: 20150914202740) do
   end
 
   add_index "question_set_categories", ["name"], name: "index_question_set_categories_on_name", using: :btree
+
+  create_table "question_set_questions", force: :cascade do |t|
+    t.integer  "category_id", null: false
+    t.string   "text",        null: false
+    t.datetime "archived_at"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "question_set_questions", ["category_id"], name: "index_question_set_questions_on_category_id", using: :btree
+  add_index "question_set_questions", ["text"], name: "index_question_set_questions_on_text", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
@@ -50,4 +61,5 @@ ActiveRecord::Schema.define(version: 20150914202740) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "question_set_questions", "question_set_categories", column: "category_id"
 end

@@ -24,8 +24,8 @@
       </thead>
       <tbody data-link="row" class="rowlink">
         <tr ng-repeat="category in categories">
-          <td class="vert-align">
-            <a ui-sref="">{{category.name}}</a>
+          <td>
+            <a ng-href="/question_set/categories/{{category.id}}/edit">{{category.name}}</a>
           </td>
           <td>
             <a>
@@ -38,7 +38,7 @@
             </div>
           </td>
           <td class="rowlink-skip text-center vert-middle">
-            <a ng-href="" class="btn bootstrap">
+            <a ng-href="/question_set/categories/{{category.id}}/edit" class="btn bootstrap">
               <i class="glyphicon glyphicon-edit text-primary"></i>
             </a>
           </td>

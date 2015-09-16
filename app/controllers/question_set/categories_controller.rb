@@ -1,15 +1,22 @@
 class QuestionSet::CategoriesController < ApplicationController
+  before_filter :authorized?
+
   def index
     @active     = QuestionSet::Category.active.where_name_like(params[:keywords])
     @page       = (params[:page] || 0).to_i
     @page_size  = (params[:page_size] || 25).to_i
-    @categories = @active.offset(@page_size * @page).limit(@page_size)
-    # respond_with @categories, meta: { total_count: @active.count }
+    @categories = @active.offset(@page_size * @page).limit(@page_size).order("name")
 
     respond_to do |format|
       format.html
       format.json { render json: @categories, meta: { total_count: @active.count } }
     end
+  end
+
+  def show
+    @category = QuestionSet::Category.find(params[:id])
+
+    render json: @category
   end
 
   def new

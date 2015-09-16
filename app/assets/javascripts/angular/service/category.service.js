@@ -8,6 +8,10 @@ function categoryService($http) {
       return $http.get("/question_set/categories.json", { params: params });
     },
 
+    getCategory: function(id) {
+      return $http.get("/question_set/categories/" + id + ".json");
+    },
+
     createCategory: function(params) {
       return $http.post("/question_set/categories.json", params);
     },

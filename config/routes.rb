@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :edit, :update]
 
   namespace :question_set do
-    resources :categories, only: [:index, :new, :create, :edit, :update]
+    resources :categories, only: [:index, :new, :create, :edit, :update, :show]
+    resources :questions, only: [:create]
   end
 
   root "dashboard#index"

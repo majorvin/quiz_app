@@ -1,5 +1,9 @@
-<div ng-controller="CategoryController"
-     ng-init="init('<%= @category.id %>', '<%= @category.name %>', '<%= @category.enabled %>', '<%= @category.max_question %>')">
+<div ng-controller="CategoryController" ng-init="init('<%= @category.id %>')">
+     <!-- ng-init="init('<%= @category.id %>', '<%= @category.name %>', '<%= @category.enabled %>', '<%= @category.max_question %>')"> -->
+
+  <script type="text/ng-template" id="question-form.html">
+    <%= render partial: "question_form" %>
+  </script>
 
   <ul class="breadcrumb">
     <li><a href="/">Home</a></li>
@@ -9,4 +13,52 @@
   <br />
 
   <%= render "form" %>
+
+  <hr />
+  <h2>Questions</h2>
+  <div class="row">
+    <div class="col-sm-9 col-xs-6 col-md-9">
+      <button type="button" class="btn btn-primary btn-sm" ng-click="submitQuestion()">
+        Add Question
+      </button>
+    </div>
+    <div class="col-sm-3 col-xs-6 col-md-3 ">
+      <input type="search" class="form-control" placeholder="Search" name="searchTerm" id="searchTerm" ng-model="searchTerm" ng-change="search()">
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-striped table-hover table-bordered">
+      <thead>
+        <tr>
+          <th>Text</th>
+          <th style="width: 100px;">Actions</th>
+        </tr>
+      </thead>
+      <tbody data-link="row" class="rowlink">
+        <tr ng-repeat="question in questions">
+          <td class="vert-align">
+            <a ng-click="submitQuestion(category.id, question.id)">
+              {{question.text}}
+            </a>
+          </td>
+          <td class="rowlink-skip">
+            <a ng-click="submitQuestion(category.id, question.id)" class="btn bootstrap">
+              <i class="glyphicon glyphicon-edit"></i>
+            </a>
+            <a class="btn bootstrap" ng-click="archiveQuestion(question.id)">
+              <i class="glyphicon glyphicon-trash"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="row">
+      <div class="text-center">
+        Showing {{showFrom()}} to {{showTo()}} of {{totalItems}} entries
+      </div>
+      <div class="text-center">
+        <pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" ng-change="pageChanged()" items-per-page="numPerPage"></pagination>
+      </div>
+    </div>
 </div>

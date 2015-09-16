@@ -5,14 +5,36 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-User.create(email: "majorvin.tan@email.com", first_name: "First", last_name: "Last", password: "11111111", admin: true)
+User.create(email: "majorvin@example.com", first_name: "First", last_name: "Last", password: "11111111", admin: true)
 
-for i in 1..100
+for i in 1..50
   User.create(email: "test-#{i}@email.com", first_name: "First", last_name: "Last", password: "11111111")
+  puts "Creating User - #{i}"
 end
 
-QuestionSet::Category.create(name: "category - 000", enabled: false, max_question: 10)
+for i in 0..50
+  params = { category: {
+    name: "#{i} - Category",
+    enabled: true,
+    max_question: 10,
+    questions_attributes: []
+  }}
 
-for i in 1..100
-  QuestionSet::Category.create(name: "category - #{i}", enabled: true, max_question: 10)
+  for j in 1..50
+    params[:category][:questions_attributes].push(
+      {
+        text: "Q#{j} - Question",
+        choices_attributes: [
+          { text: "Q1 - Choice1", answer: false},
+          { text: "Q2 - Choice2", answer: true},
+        ]
+      },
+    )
+  end
+
+  qc1 = QuestionSet::Category.create(params[:category])
+
+  qc2 = QuestionSet::Category.create({ name: "#{i} - Category", enabled: false, max_question: 30 })
+
+  puts "Question Category ##{i} is created."
 end

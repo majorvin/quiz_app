@@ -19,5 +19,9 @@ function questionservice($http) {
     updateQuestion: function(question) {
       return $http.put("/question_set/questions/" + params.question.id + ".json", params);
     },
+
+    archiveQuestion: function(id) {
+      return $http.put("/question_set/questions/" + id + "/archive.json");
+    }
   };
 };

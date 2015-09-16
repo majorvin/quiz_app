@@ -1,7 +1,7 @@
 angular.module("quizzer").controller("CategoryListController", CategoryListController);
 
 
-function CategoryListController($scope, categoryService) {
+function CategoryListController($scope, $window, categoryService) {
   initialize();
   $scope.categories = [];
   $scope.currentPage = 1;
@@ -48,6 +48,31 @@ function CategoryListController($scope, categoryService) {
       .then(function(response) {
         $scope.categories = response.data.categories;
         $scope.totalItems = response.data.meta.total_count;
+    });
+  };
+
+  $scope.archiveCategory = function(id) {
+    swal({
+      title: "Are you sure?",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Yes, delete it!",
+      closeOnConfirm: false,
+      allowOutsideClick: true
+    },
+    function() {
+      categoryService.archiveCategory(id)
+        .then(function() {
+          $window.location.reload();
+        }, function(response) {
+          swal({
+            title: "Oops...",
+            text: "Something went wrong!",
+            type: "error",
+            allowOutsideClick: true
+          });
+      });
     });
   };
 

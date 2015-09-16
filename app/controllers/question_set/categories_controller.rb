@@ -48,6 +48,18 @@ class QuestionSet::CategoriesController < ApplicationController
     end
   end
 
+  # Archive a category
+  def archive
+    @category = QuestionSet::Category.find(params[:id])
+
+    if @category.update_attributes(archived_at: DateTime.now)
+      flash[:notice] = 'Category was successfully deleted.'
+      render nothing: true, status: 204
+    else
+      render json: { errors: @category.errors.to_a }, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def category_params

@@ -19,5 +19,9 @@ function categoryService($http) {
     updateCategory: function(params) {
       return $http.put("/question_set/categories/" + params.category.id + ".json", params);
     },
+
+    archiveCategory: function(id) {
+      return $http.put("/question_set/categories/" + id + "/archive.json");
+    },
   };
 };

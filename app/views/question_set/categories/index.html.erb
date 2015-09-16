@@ -19,7 +19,7 @@
           <th>Name</th>
           <th style="width: 10px;">Max</th>
           <th style="width: 60px;">Enabled</th>
-          <th style="width: 60px;">Actions</th>
+          <th style="width: 100px;">Actions</th>
         </tr>
       </thead>
       <tbody data-link="row" class="rowlink">
@@ -41,11 +41,12 @@
             <a ng-href="/question_set/categories/{{category.id}}/edit" class="btn bootstrap">
               <i class="glyphicon glyphicon-edit text-primary"></i>
             </a>
+            <a class="btn bootstrap" ng-click="archiveCategory(category.id)">
+              <i class="glyphicon glyphicon-trash text-primary"></i>
+            </a>
           </td>
         </tr>
       </tbody>
-
-
     </table>
   </div>
   <div class="row">

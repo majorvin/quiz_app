@@ -19,7 +19,7 @@ class Exam::List < ActiveRecord::Base
   end
 
   def self.find_or_create(user, category_id)
-    list = self.where("user_id = ? AND category_id = ?", user.id, category_id)
+    list = self.where("user_id = ? AND category_id = ? AND workflow_state != ?", user.id, category_id, "completed")
 
     if list.count > 0
       exam = list.first

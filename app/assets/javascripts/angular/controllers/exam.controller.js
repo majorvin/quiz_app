@@ -82,10 +82,21 @@ function ExamController($scope, $window, Flash, examListService, examQuestionSer
   $scope.submit = function() {
     if ($scope.examCompleted) { return; }
 
-    examListService.completeExam($scope.list.id)
-      .then(function(response) {
+    swal({
+      title: "Are you sure?",
+      text: "You can no longer modify your answers after it's been submitted.",
+      type: "info",
+      showCancelButton: true,
+      closeOnConfirm: false,
+      showLoaderOnConfirm: true,
+    }, function(){
+      examListService.completeExam($scope.list.id)
+        .then(function(response) {
+          $window.location.href = "/available";
+        });
+    });
 
-      });
+
   };
 
   $scope.goTo = function(index) {

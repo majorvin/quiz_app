@@ -20,7 +20,7 @@ class Exam::ListsController < ApplicationController
 
   def update
     @exam = Exam::List.find(params[:id])
-    @exam.submit! if @exam.can_submit?
+    @exam.complete! if @exam.can_submit?
 
     render nothing: true, status: 204
   end

@@ -6,8 +6,8 @@ function AvailableController($scope, $window, categoryService, examListService) 
 
   $scope.categories = [];
 
-  $scope.start = function(categoryId) {
-    var params = { category_id: categoryId };
+  $scope.start = function(category) {
+    var params = { category_id: category.id };
     var examId = 0;
 
     examListService.findExam(params)
@@ -16,6 +16,16 @@ function AvailableController($scope, $window, categoryService, examListService) 
       }, function() {
         console.log("Something happened!")
       })
+  };
+
+  $scope.showGrade = function(category) {
+    if (category.last_grade === null) { return; }
+
+    return category.last_grade + "%";
+  };
+
+  $scope.examPassed = function(category) {
+    return category.last_grade >= 90;
   };
 
   function initialize() {

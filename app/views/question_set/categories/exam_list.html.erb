@@ -19,16 +19,18 @@
           <td class="rowlink-skip">
             {{category.name}}
           </td>
-          <td class="rowlink-skip">
-
+          <td class="rowlink-skip text-center">
+            <div ng-class="{'text-success': examPassed(category), 'text-warning': !examPassed(category)}">
+              <b>{{showGrade(category)}} </b>
+            </div>
           </td>
-          <td class="rowlink-skip">
-
+          <td class="rowlink-skip text-center">
+            {{category.attempts}}
           </td>
           <td class="rowlink-skip text-center vert-middle">
-            <a class="btn bootstrap" ng-click="start(category.id)">
-              <i class="glyphicon glyphicon-play text-primary"></i>
-            </a>
+            <button class="btn bootstrap" ng-click="start(category)" ng-disabled="examPassed(category)">
+              <i class="glyphicon glyphicon-play" ng-class="{'text-primary': !examPassed(category)}"></i>
+            </button>
           </td>
         </tr>
       </tbody>

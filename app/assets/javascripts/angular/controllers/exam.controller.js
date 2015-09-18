@@ -76,7 +76,7 @@ function ExamController($scope, $window, Flash, examListService, examQuestionSer
   };
 
   $scope.showSubmitBtn = function() {
-    return $scope.trackProgress >= 100 && !$scope.examCompleted;
+    return $scope.trackProgress.toFixed(2) >= 100 && !$scope.examCompleted;
   };
 
   $scope.submit = function() {

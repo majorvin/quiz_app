@@ -18,6 +18,18 @@ class Exam::List < ActiveRecord::Base
     state :completed
   end
 
+  def complete!
+    self.submit!
+    correct_answer = 0
+
+    self.questions.each do |question|
+      correct_answer = correct_answer + 1 if question.choices.where(answer: true).first.id == question.value.to_i
+    end
+
+    grade = "%.2f" % (correct_answer.to_f / self.questions.count.to_f * 100)
+    self.update_attributes(grade: grade)
+  end
+
   def self.find_or_create(user, category_id)
     list = self.where("user_id = ? AND category_id = ? AND workflow_state != ?", user.id, category_id, "completed")
 

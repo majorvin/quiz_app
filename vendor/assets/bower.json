@@ -7,6 +7,8 @@
     "angular-animate": "latest",
     "jasny-bootstrap": "latest",
     "angular-bootstrap": "latest",
-    "sweetalert": "latest"
+    "sweetalert": "latest",
+    "arrive": "latest",
+    "angular-flash-alert": "latest"
   }
 }

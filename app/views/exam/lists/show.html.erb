@@ -1,0 +1,31 @@
+<div ng-controller="ExamController" ng-init="init('<%= @exam.id %>')">
+  <div flash-message="10000" ></div>
+  <br />
+  <h3 class="text-center">{{examTitle}}</h3>
+  <hr />
+  <div class="progress progress-striped active">
+    <div class="progress-bar progress-bar-info" ng-style="{'width': progress}"></div>
+  </div>
+
+  <pre class="text-center">Question: {{currentPage}} / {{totalItems}}</pre>
+  <div class="panel panel-primary">
+    <div class="panel-heading text-center">
+      <h3 class="panel-title">{{displayedQuestion.text}}</h3>
+    </div>
+    <div class="panel-body">
+      <div ng-repeat="choice in displayedQuestion.choices">
+        <div class="radio radio-primary">
+          <label>
+            <input type="radio" name="choice" ng-value="choice" ng-model="selectedChoice" ng-click="setAnswer(choice)">
+            {{choice.text}}
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <pager total-items="totalItems" ng-model="currentPage" items-per-page="1" ng-change="pageChanged()"></pager>
+
+  <button class="btn btn-block btn-info waves-effect waves-light btn-sm" type="submit" name="commit" ng-show="showSubmitBtn()" ng-cloak>Submit</button>
+</div>
+

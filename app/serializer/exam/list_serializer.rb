@@ -1,5 +1,5 @@
 class Exam::ListSerializer < ActiveModel::Serializer
-  attributes :id, :workflow_state, :name
+  attributes :id, :workflow_state, :name, :grade
 
   has_many :questions
 

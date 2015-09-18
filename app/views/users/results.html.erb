@@ -1,0 +1,54 @@
+<div ng-controller="UserResultController">
+  <script>
+    <%= render "user_service.js.erb" %>
+  </script>
+
+  <ul class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li><a href="/users">Users</a></li>
+    <li class="active">Results</li>
+  </ul>
+
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <tr>
+        <td><b>First Name</b></td>
+        <td><%= @user.first_name %></td>
+      </tr>
+      <tr>
+        <td><b>Last Name</b></td>
+        <td><%= @user.last_name %></td>
+      </tr>
+      <tr>
+        <td><b>Email Address</b></td>
+        <td><%= @user.email %></td>
+      </tr>
+    </table>
+  </div>
+
+  <hr />
+
+  <div class="table-responsive">
+    <table class="table table-striped table-hover table-bordered">
+      <thead>
+        <tr>
+          <th>Quiz Name</th>
+          <th>Score</th>
+        </tr>
+      </thead>
+      <tbody data-link="row" class="rowlink">
+        <tr ng-repeat="exam in exams">
+          <td>
+            {{exam.name}}
+          </td>
+          <td class="text-center">
+            <div ng-class="{'text-success': examPassed(exam), 'text-warning': !examPassed(exam)}">
+              <b>{{showGrade(exam)}} </b>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+

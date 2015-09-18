@@ -27,6 +27,16 @@ class UsersController < ApplicationController
     end
   end
 
+  def results
+    @user = User.find(params[:user_id])
+    @exams = Exam::List.where(user: @user).order("category_id ASC, workflow_state ASC")
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @exams, root: false }
+    end
+  end
+
   private
 
   def user_params

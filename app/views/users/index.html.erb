@@ -13,7 +13,10 @@
       <thead>
         <tr>
           <th>Email</th>
+          <th>First Name</th>
+          <th>Last Name</th>
           <th style="width: 60px;">Locked</th>
+          <th style="width: 60px;">Results</th>
           <th style="width: 60px;">Actions</th>
         </tr>
       </thead>
@@ -22,10 +25,21 @@
           <td class="vert-align">
             <a ng-href="/users/{{user.id}}/edit">{{user.email}}</a>
           </td>
+          <td>
+            {{user.first_name}}
+          </td>
+          <td>
+            {{user.last_name}}
+          </td>
           <td class="rowlink-skip text-center">
             <div ng-show="user.locked">
               <i class="glyphicon glyphicon-ok"></i>
             </div>
+          </td>
+          <td>
+            <a ng-href="/users/{{user.id}}/results" class="btn bootstrap">
+              <i class="glyphicon glyphicon-book text-primary"></i>
+            </a>
           </td>
           <td class="rowlink-skip text-center vert-middle">
             <a ng-href="/users/{{user.id}}/edit" class="btn bootstrap">

@@ -6,4 +6,8 @@ class Exam::ListSerializer < ActiveModel::Serializer
   def name
     object.category.name
   end
+
+  def questions
+    object.questions.order("text")
+  end
 end

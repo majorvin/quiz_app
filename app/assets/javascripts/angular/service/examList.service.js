@@ -14,7 +14,11 @@ function examListService($http) {
     },
 
     getExam: function(id) {
-     return $http.get("/exam/lists/" + id + ".json");
+      return $http.get("/exam/lists/" + id + ".json");
+    },
+
+    completeExam: function(id) {
+      return $http.put("/exam/lists/" + id + ".json");
     }
   };
 };

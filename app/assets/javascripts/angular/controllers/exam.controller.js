@@ -10,10 +10,13 @@ function ExamController($scope, $window, Flash, examListService, examQuestionSer
   $scope.currentPage = 1;
   $scope.totalItems = 0;
   $scope.examTitle = null;
+  $scope.list = null;
+  $scope.examCompleted = false;
 
   $scope.init = function(id) {
     examListService.getExam(id)
       .then(function(response) {
+        $scope.list = response.data.list;
         $scope.examTitle = response.data.list.name;
         $scope.questions = response.data.list.questions;
         $scope.totalItems = $scope.questions.length;
@@ -25,6 +28,11 @@ function ExamController($scope, $window, Flash, examListService, examQuestionSer
           var message = "<strong>Welcome Back!</strong> Let us continue your exam.";
           Flash.create('info', message, 'custom-class');
         }
+        else if (response.data.list.workflow_state === "completed") {
+          $scope.examCompleted = true;
+          var message = "<strong>Welcome Back!</strong> This exam has been completed and can no longer be modified.";
+          Flash.create('success', message, 'custom-class');
+        };
 
         // Mark the loading bar
         angular.forEach($scope.questions, function(q) {
@@ -63,15 +71,33 @@ function ExamController($scope, $window, Flash, examListService, examQuestionSer
       });
   };
 
+  $scope.showQuestionResult = function(question) {
+    return question.value ? "Answered" : "Not Answered";
+  };
+
   $scope.showSubmitBtn = function() {
-    return $scope.trackProgress >= 100;
+    return $scope.trackProgress >= 100 && !$scope.examCompleted;
+  };
+
+  $scope.submit = function() {
+    if ($scope.examCompleted) { return; }
+
+    examListService.completeExam($scope.list.id)
+      .then(function(response) {
+
+      });
+  };
+
+  $scope.goTo = function(index) {
+    $scope.currentPage = index + 1;
+    $scope.displayedQuestion = $scope.questions[index]
   };
 
   function setQuestionAnswer() {
     // Set the radio box to be selected
     var value = $scope.displayedQuestion.value;
 
-    if (value !== null || value !== undefined) {
+    if (value !== null) {
       angular.forEach($scope.displayedQuestion.choices, function(c) {
         // compare integer and string
         if (c.id == value) {

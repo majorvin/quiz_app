@@ -9,6 +9,7 @@
     "angular-bootstrap": "latest",
     "sweetalert": "latest",
     "arrive": "latest",
-    "angular-flash-alert": "latest"
+    "angular-flash-alert": "latest",
+    "lodash": "latest"
   }
 }

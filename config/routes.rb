@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get "/available", to: "question_set/categories#exam_list"
 
   namespace :exam do
-    resources :lists, only: [:show] do
+    resources :lists, only: [:show, :update] do
 
       collection do
         get 'find'

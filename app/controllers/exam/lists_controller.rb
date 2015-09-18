@@ -1,5 +1,5 @@
 class Exam::ListsController < ApplicationController
-  before_filter :check_priviledges, only: [:show]
+  before_filter :check_privileges, only: [:show, :update]
 
   def show
     @exam = Exam::List.find(params[:id])
@@ -18,9 +18,16 @@ class Exam::ListsController < ApplicationController
     render json: url.to_json
   end
 
+  def update
+    @exam = Exam::List.find(params[:id])
+    @exam.submit! if @exam.can_submit?
+
+    render nothing: true, status: 204
+  end
+
   private
 
-  def check_priviledges
+  def check_privileges
     exam = Exam::List.find(params[:id])
 
     if exam.user != current_user

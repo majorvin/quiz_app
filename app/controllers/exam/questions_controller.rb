@@ -1,5 +1,5 @@
 class Exam::QuestionsController < ApplicationController
-  before_filter :check_priviledges, only: [:update]
+  before_filter :check_privileges, only: [:update]
 
   def update
     @question = Exam::Question.find(params[:id])
@@ -7,7 +7,7 @@ class Exam::QuestionsController < ApplicationController
 
     @list.start! if @list.created?
 
-    if @question.update_attributes(question_params)
+    if @list.completed? || @question.update_attributes(question_params)
       render nothing: true, status: 204
     end
   end
@@ -18,7 +18,7 @@ class Exam::QuestionsController < ApplicationController
     params.require(:question).permit(:value)
   end
 
-  def check_priviledges
+  def check_privileges
     exam = Exam::Question.find(params[:id]).list
 
     if exam.user != current_user

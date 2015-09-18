@@ -1,4 +1,6 @@
 class QuestionSet::QuestionsController < ApplicationController
+  before_filter :authorized?
+
   def index
     @active     = QuestionSet::Question.active
     @category_questions = @active.by_category_id(params[:category_id]).where_text_like(params[:keywords])

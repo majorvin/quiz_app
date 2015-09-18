@@ -6,6 +6,6 @@ class QuestionSet::Category < ActiveRecord::Base
   accepts_nested_attributes_for :questions, allow_destroy: true
 
   scope :active, -> { where(archived_at: nil) }
-  scope :enabled, -> { where(enable: true) }
+  scope :enabled, -> { where(enabled: true) }
   scope :where_name_like, -> (text) { where("name ilike ?", "%#{text}%") }
 end

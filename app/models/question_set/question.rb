@@ -11,6 +11,10 @@ class QuestionSet::Question < ActiveRecord::Base
   scope :where_text_like, -> (text) { where("text ilike ?", "%#{text}%") }
   scope :by_category_id, -> (id) { where("category_id = ?", id) }
 
+  def correct_answer
+    self.choices.where(answer: true).first
+  end
+
   private
 
   def reject_question(attrb)

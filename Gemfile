@@ -15,6 +15,7 @@ gem 'angular_rails_csrf'
 gem 'angular-rails-templates'
 gem 'sprockets', '2.12.3'
 gem 'active_model_serializers'
+gem 'workflow'
 
 group :development, :test do
   gem 'pry'

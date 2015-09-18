@@ -14,6 +14,7 @@
  *= require bootstrap-material-design
  *= require jasny-bootstrap
  *= require sweetalert
+ *= require angular-flash-alert
  *= require_self
  *= require_tree .
  */

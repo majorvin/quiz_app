@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require arrive
 //= require bootstrap
 //= require bootstrap-material-design
 //= require angular
@@ -21,4 +22,5 @@
 //= require jasny-bootstrap
 //= require angular-bootstrap
 //= require sweetalert
+//= require angular-flash-alert
 //= require_tree .

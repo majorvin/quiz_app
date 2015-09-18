@@ -1,5 +1,5 @@
 class QuestionSet::CategoriesController < ApplicationController
-  before_filter :authorized?
+  before_filter :authorized?, except: [:exam_list]
 
   def index
     @active     = QuestionSet::Category.active.where_name_like(params[:keywords])
@@ -57,6 +57,24 @@ class QuestionSet::CategoriesController < ApplicationController
       render nothing: true, status: 204
     else
       render json: { errors: @category.errors.to_a }, status: :unprocessable_entity
+    end
+  end
+
+  def exam_list
+    @active = QuestionSet::Category.active
+    @enabled = @active.enabled.where_name_like(params[:keywords])
+    @page = (params[:page] || 0).to_i
+    # TODO change the page size or create pagination
+    @page_size  = (params[:page_size] || 10000).to_i
+    @categories = @enabled.offset(@page_size * @page).limit(@page_size).order("name")
+
+    respond_to do |format|
+      format.html
+      format.json {
+        render json: @categories,
+               each_serializer: QuestionSet::CategoryAvailableSerializer,
+               meta: { total_count: @enabled.count }
+      }
     end
   end
 

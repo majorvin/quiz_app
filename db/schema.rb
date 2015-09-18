@@ -11,10 +11,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150916143211) do
+ActiveRecord::Schema.define(version: 20150918021007) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "exam_choices", force: :cascade do |t|
+    t.integer "question_id",                 null: false
+    t.string  "text",                        null: false
+    t.boolean "answer",      default: false
+  end
+
+  create_table "exam_lists", force: :cascade do |t|
+    t.integer "category_id",    null: false
+    t.integer "user_id",        null: false
+    t.string  "workflow_state"
+  end
+
+  add_index "exam_lists", ["category_id"], name: "index_exam_lists_on_category_id", using: :btree
+  add_index "exam_lists", ["user_id"], name: "index_exam_lists_on_user_id", using: :btree
+
+  create_table "exam_questions", force: :cascade do |t|
+    t.integer "list_id",                  null: false
+    t.integer "question_set_question_id", null: false
+    t.string  "value"
+    t.string  "text",                     null: false
+  end
+
+  add_index "exam_questions", ["list_id"], name: "index_exam_questions_on_list_id", using: :btree
 
   create_table "question_set_categories", force: :cascade do |t|
     t.string   "name",                         null: false

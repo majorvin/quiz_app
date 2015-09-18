@@ -28,6 +28,8 @@ class Exam::List < ActiveRecord::Base
 
     grade = "%.2f" % (correct_answer.to_f / self.questions.count.to_f * 100)
     self.update_attributes(grade: grade)
+
+    ExamMailer.send_result(self).deliver_now
   end
 
   def self.find_or_create(user, category_id)

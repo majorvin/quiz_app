@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h3><%= @user.first_name %> <%= @user.last_name %> quiz score information</h3>
+    <br />
+    <div>
+      <p>
+        <b>Email Address: </b> <%= @user.email %>
+      </p>
+      <p>
+        <b>Quiz Name: </b> <%= @category.name %>
+      </p>
+      <p>
+        <b>Quiz Score: </b> <%= @exam.grade %>%
+      </p>
+    </div>
+  </body>
+</html>

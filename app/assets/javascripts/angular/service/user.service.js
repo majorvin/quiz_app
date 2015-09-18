@@ -10,6 +10,10 @@ function userService($http) {
 
     updateUser: function(params) {
       return $http.put("/users/" + params.id + ".json", params);
+    },
+
+    getResults: function(id) {
+      return $http.get("/users/" + id + "/results.json");
     }
   };
 };

@@ -33,7 +33,8 @@
       <thead>
         <tr>
           <th>Quiz Name</th>
-          <th>Score</th>
+          <th style="width: 100px;">Score</th>
+          <th style="width: 100px;">Action</th>
         </tr>
       </thead>
       <tbody>
@@ -45,6 +46,9 @@
             <div ng-class="{'text-success': examPassed(exam), 'text-warning': !examPassed(exam)}">
               <b>{{showGrade(exam)}} </b>
             </div>
+          </td>
+          <td class="text-center">
+            <a ng-href="/exam/lists/{{exam.id}}">View</a>
           </td>
         </tr>
       </tbody>

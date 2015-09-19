@@ -30,9 +30,9 @@ class Exam::ListsController < ApplicationController
   def check_privileges
     exam = Exam::List.find(params[:id])
 
-    if exam.user != current_user
+    if exam.user != current_user && !current_user.admin?
       flash[:alert] = "You are not authorized to view that page."
-      redirect_to available_path
+      redirect_to root_path
     end
   end
 end

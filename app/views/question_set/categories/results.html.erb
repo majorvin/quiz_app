@@ -1,48 +1,26 @@
-<div ng-controller="UserResultController">
-  <script>
-    <%= render "user_service.js.erb" %>
-  </script>
-
+<div ng-controller="ExamResultController" ng-init="init('<%= @category.id %>')">
   <ul class="breadcrumb">
     <li><a href="/">Home</a></li>
-    <li><a href="/users">Users</a></li>
+    <li><a href="/available">Available Exams</a></li>
     <li class="active">Results</li>
   </ul>
 
-  <div class="table-responsive">
-    <table class="table table-bordered">
-      <tr>
-        <td><b>First Name</b></td>
-        <td><%= @user.first_name %></td>
-      </tr>
-      <tr>
-        <td><b>Last Name</b></td>
-        <td><%= @user.last_name %></td>
-      </tr>
-      <tr>
-        <td><b>Email Address</b></td>
-        <td><%= @user.email %></td>
-      </tr>
-    </table>
+  <div class="text-center">
+    <h3><%= @category.name %></h3>
   </div>
 
-  <hr />
-
+  <br />
   <div class="table-responsive">
     <table class="table table-striped table-hover table-bordered">
       <thead>
         <tr>
-          <th>Quiz Name</th>
-          <th style="width: 100px;">Score</th>
-          <th style="width: 180px;">Completed At</th>
-          <th style="width: 100px;">Action</th>
+          <th>Score</th>
+          <th>Completed At</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
         <tr ng-repeat="exam in exams">
-          <td>
-            {{exam.name}}
-          </td>
           <td class="text-center">
             <div ng-class="{'text-success': examPassed(exam), 'text-warning': !examPassed(exam)}">
               <b>{{showGrade(exam)}} </b>
@@ -59,4 +37,3 @@
     </table>
   </div>
 </div>
-

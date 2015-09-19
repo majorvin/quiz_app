@@ -19,7 +19,7 @@ Rails.application.routes.draw do
 
   namespace :question_set do
     resources :categories, only: [:index, :new, :create, :edit, :update, :show] do
-
+      get "results"
 
       member do
         put "archive"

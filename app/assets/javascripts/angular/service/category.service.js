@@ -27,5 +27,9 @@ function categoryService($http) {
     archiveCategory: function(id) {
       return $http.put("/question_set/categories/" + id + "/archive.json");
     },
+
+    getResult: function(id) {
+      return $http.get("/question_set/categories/" + id + "/results.json");
+    },
   };
 };

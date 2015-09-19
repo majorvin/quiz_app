@@ -1,4 +1,4 @@
-<div ng-controller="AvailableController" ng-init="init()">
+<div ng-controller="AvailableController">
   <ul class="breadcrumb">
     <li><a href="/">Home</a></li>
     <li class="active">Exam List</li>
@@ -25,7 +25,11 @@
             </div>
           </td>
           <td class="rowlink-skip text-center">
-            {{category.attempts}}
+            <u>
+              <a ng-href="/question_set/categories/{{category.id}}/results">
+                {{category.attempts}}
+              </a>
+            </u>
           </td>
           <td class="rowlink-skip text-center vert-middle">
             <button class="btn bootstrap" ng-click="start(category)" ng-disabled="examPassed(category)">

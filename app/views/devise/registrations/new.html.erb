@@ -8,21 +8,35 @@
       <span class="input-group-addon">
         <i class="mdi-communication-email"></i>
       </span>
-      <input type="email" id="user_email" name="user[email]" class= "form-control floating-label" placeholder= "Email" autofocus="autofocus" required>
+      <%= f.email_field :email, class: "form-control floating-label", placeholder: "Email", autofocus: true, required: true %>
     </div>
 
     <div class="input-group">
       <span class="input-group-addon">
         <i class="mdi-social-person"></i>
       </span>
-      <input type="text" id="user_first_name" name="user[first_name]" class= "form-control floating-label" placeholder= "First Name" autofocus="autofocus" required>
+      <%= f.text_field :first_name, class: "form-control floating-label", placeholder: "First Name", required: true %>
     </div>
 
     <div class="input-group">
       <span class="input-group-addon">
         <i class="mdi-social-person"></i>
       </span>
-      <input type="text" id="user_last_name" name="user[last_name]" class= "form-control floating-label" placeholder= "Last Name" autofocus="autofocus" required>
+      <%= f.text_field :last_name, class: "form-control floating-label", placeholder: "Last Name", required: true %>
+    </div>
+
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="mdi-social-group"></i>
+      </span>
+      <%= f.text_field :team, class: "form-control floating-label", placeholder: "Team/Department" %>
+    </div>
+
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="mdi-av-recent-actors"></i>
+      </span>
+      <%= f.text_field :position, class: "form-control floating-label", placeholder: "Position/Role" %>
     </div>
 
     <div class="input-group">

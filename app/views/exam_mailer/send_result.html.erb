@@ -4,18 +4,37 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h3><%= @user.first_name %> <%= @user.last_name %> quiz score information</h3>
-    <br />
     <div>
-      <p>
-        <b>Email Address: </b> <%= @user.email %>
-      </p>
-      <p>
-        <b>Quiz Name: </b> <%= @category.name %>
-      </p>
-      <p>
-        <b>Quiz Score: </b> <%= @exam.grade %>%
-      </p>
+      <table>
+        <tr>
+          <td><b>First Name:</b></td>
+          <td><%= @user.first_name %></td>
+        </tr>
+        <tr>
+          <td><b>Last Name:</b></td>
+          <td><%= @user.last_name %></td>
+        </tr>
+        <tr>
+          <td><b>Email Address:</b></td>
+          <td><%= @user.email %></td>
+        </tr>
+        <tr>
+          <td><b>Team/Deparment:</b></td>
+          <td><%= @user.team %></td>
+        </tr>
+        <tr>
+          <td><b>Position/Role:</b></td>
+          <td><%= @user.position %></td>
+        </tr>
+        <tr>
+          <td><b>Quiz Name:</b></td>
+          <td><%= @category.name %></td>
+        </tr>
+        <tr>
+          <td><b>Quiz Score:</b></td>
+          <td><%= @exam.grade %>%</td>
+        </tr>
+      </table>
     </div>
   </body>
 </html>

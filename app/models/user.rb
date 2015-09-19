@@ -6,5 +6,7 @@ class User < ActiveRecord::Base
 
   acts_as_paranoid
 
+  validates :email, :first_name, :last_name, presence: true
+
   scope :where_email_like, -> (text) { where("email ilike ?", "%#{text}%") }
 end

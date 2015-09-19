@@ -30,8 +30,9 @@ function ExamController($scope, $window, Flash, examListService, examQuestionSer
         }
         else if (response.data.list.workflow_state === "completed") {
           $scope.examCompleted = true;
-          var message = "<strong>Welcome Back!</strong> This exam has been completed and can no longer be modified.";
+          var message = "This exam has been completed and can no longer be modified. You received <strong>" + $scope.list.grade + "%</strong>!";
           Flash.create('success', message, 'custom-class');
+          Flash.pause();
         };
 
         // Mark the loading bar
@@ -92,7 +93,7 @@ function ExamController($scope, $window, Flash, examListService, examQuestionSer
     }, function(){
       examListService.completeExam($scope.list.id)
         .then(function(response) {
-          $window.location.href = "/available";
+          $window.location.reload();
         });
     });
 

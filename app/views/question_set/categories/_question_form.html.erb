@@ -48,7 +48,11 @@
     <table class="table table-responsive table-borderless">
       <tr ng-repeat="choice in choices | filter: hideDeletedChoice">
         <td class="table-row-borderless text-center" style="width: 15px;">
-          <input type="radio" name="answer" ng-model="selectedChoice" ng-value="choice" ng-click="setAnswer(choice)">
+          <div class="radio radio-primary">
+            <label>
+              <input type="radio" name="answer" ng-model="selectedChoice" ng-value="choice" ng-click="setAnswer(choice)">
+            </label>
+          </div>
         </td>
         <td class="table-row-borderless">
           <div ng-form="choiceForm">

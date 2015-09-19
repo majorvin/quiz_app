@@ -4,6 +4,6 @@ class Exam::QuestionSerializer < ActiveModel::Serializer
   has_many :choices
 
   def choices
-    object.choices.order("id")
+    object.choices.order("RANDOM()")
   end
 end

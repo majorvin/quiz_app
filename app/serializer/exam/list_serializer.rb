@@ -8,6 +8,6 @@ class Exam::ListSerializer < ActiveModel::Serializer
   end
 
   def questions
-    object.questions.order("text")
+    object.questions.order("RANDOM()")
   end
 end

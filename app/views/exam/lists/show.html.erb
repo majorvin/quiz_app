@@ -18,6 +18,7 @@
           <label>
             <input type="radio" name="choice" ng-value="choice" ng-model="selectedChoice" ng-click="setAnswer(choice)" ng-disabled="examCompleted">
             {{choice.text}}
+            <i class="glyphicon glyphicon-ok text-danger" ng-if="choice.answer"></i>
           </label>
         </div>
       </div>

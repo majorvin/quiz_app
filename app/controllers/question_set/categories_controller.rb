@@ -1,5 +1,5 @@
 class QuestionSet::CategoriesController < ApplicationController
-  before_filter :authorized?, except: [:exam_list]
+  before_filter :authorized?, except: [:exam_list, :results]
 
   def index
     @active     = QuestionSet::Category.active.where_name_like(params[:keywords])

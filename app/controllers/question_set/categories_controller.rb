@@ -60,6 +60,16 @@ class QuestionSet::CategoriesController < ApplicationController
     end
   end
 
+  def results
+    @category = QuestionSet::Category.find(params[:category_id])
+    @exams = Exam::List.where("category_id = ? AND user_id = ?", @category.id, current_user.id)
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @exams, root: false }
+    end
+  end
+
   def exam_list
     @active = QuestionSet::Category.active
     @enabled = @active.enabled.where_name_like(params[:keywords])

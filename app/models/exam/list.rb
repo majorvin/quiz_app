@@ -19,17 +19,19 @@ class Exam::List < ActiveRecord::Base
   end
 
   def complete!
-    self.submit!
-    correct_answer = 0
+    ActiveRecord::Base.transaction do
+      self.submit!
+      correct_answer = 0
 
-    self.questions.each do |question|
-      correct_answer = correct_answer + 1 if question.choices.where(answer: true).first.id == question.value.to_i
+      self.questions.each do |question|
+        correct_answer = correct_answer + 1 if question.choices.where(answer: true).first.id == question.value.to_i
+      end
+
+      grade = "%.2f" % (correct_answer.to_f / self.questions.count.to_f * 100)
+      self.update_attributes({grade: grade, completed_at: Time.now})
+
+      ExamMailer.send_result(self).deliver_now
     end
-
-    grade = "%.2f" % (correct_answer.to_f / self.questions.count.to_f * 100)
-    self.update_attributes(grade: grade)
-
-    ExamMailer.send_result(self).deliver_now
   end
 
   def self.find_or_create(user, category_id)

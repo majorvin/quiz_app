@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150918220237) do
+ActiveRecord::Schema.define(version: 20150919211745) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,10 +23,11 @@ ActiveRecord::Schema.define(version: 20150918220237) do
   end
 
   create_table "exam_lists", force: :cascade do |t|
-    t.integer "category_id",    null: false
-    t.integer "user_id",        null: false
-    t.string  "workflow_state"
-    t.decimal "grade"
+    t.integer  "category_id",    null: false
+    t.integer  "user_id",        null: false
+    t.string   "workflow_state"
+    t.decimal  "grade"
+    t.datetime "completed_at"
   end
 
   add_index "exam_lists", ["category_id"], name: "index_exam_lists_on_category_id", using: :btree

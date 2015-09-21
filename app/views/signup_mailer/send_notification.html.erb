@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <div>
+      <table>
+        <tr>
+          <td colspan="2">New Registration for:</td>
+        </tr>
+        <tr>
+          <td><b>First Name:</b></td>
+          <td><%= @user.first_name %></td>
+        </tr>
+        <tr>
+          <td><b>Last Name:</b></td>
+          <td><%= @user.last_name %></td>
+        </tr>
+        <tr>
+          <td><b>Email Address:</b></td>
+          <td><%= @user.email %></td>
+        </tr>
+        <tr>
+          <td><b>Team/Deparment:</b></td>
+          <td><%= @user.team %></td>
+        </tr>
+        <tr>
+          <td><b>Position/Role:</b></td>
+          <td><%= @user.position %></td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

@@ -41,6 +41,14 @@
 
     <div class="input-group">
       <span class="input-group-addon">
+        <i class="mdi-social-school"></i>
+      </span>
+      <%= f.select "track_id", Certification::Track.enabled.collect { |t| [t.name,t.id] }, { include_blank: 'Please select Certification Track'}, class: "form-control", required: true %>
+      <small>Certification Track</small>
+    </div>
+
+    <div class="input-group">
+      <span class="input-group-addon">
         <i class="mdi-communication-vpn-key"></i>
       </span>
       <input type="password" id="user_password" name="user[password]" class= "form-control floating-label" placeholder= "Password (8 characters minimum)" autocomplete="off" required>

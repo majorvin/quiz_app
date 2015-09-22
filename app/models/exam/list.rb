@@ -34,6 +34,10 @@ class Exam::List < ActiveRecord::Base
     end
   end
 
+  def passed?
+    self.grade.to_i >= 90
+  end
+
   def self.find_or_create(user, category_id)
     list = self.where("user_id = ? AND category_id = ? AND workflow_state != ?", user.id, category_id, "completed")
 

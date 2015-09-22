@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   after_create :send_email_to_admin
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -9,6 +10,7 @@ class User < ActiveRecord::Base
 
   validates :email, :first_name, :last_name, presence: true
 
+  belongs_to :track, class_name: "Certification::Track"
   scope :where_email_like, -> (text) { where("email ilike ?", "%#{text}%") }
 
   private

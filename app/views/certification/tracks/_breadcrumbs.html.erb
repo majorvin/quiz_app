@@ -1,0 +1,11 @@
+<ul class="breadcrumb">
+  <li><a href="/">Home</a></li>
+  <li><%= link_to "Certification Track", certification_tracks_path %></li>
+  <li class="active">
+    <% if @track.new_record? %>
+      New Track
+    <% else %>
+      Track #<%= @track.id %>
+    <% end %>
+  </li>
+</ul>

@@ -1,0 +1,42 @@
+<%= form_for(@track, url: batch_destroy_certification_track_categories_path(@track), method: :put) do |f|%>
+  <%= link_to "Add Categories", new_certification_track_category_path(@track), class: "btn btn-primary btn-sm" %>
+  <%= f.submit "Delete Categories", class: "btn btn-danger btn-sm" %>
+
+  <div class="table-responsive">
+    <table class="table table-striped table-hover table-bordered">
+      <thead>
+        <tr>
+          <th colspan="3" class="text-center">Categories</th>
+        </tr>
+        <tr>
+          <th style="width: 60px;"></th>
+          <th>Name</th>
+          <th style="width: 60px;">Enabled</th>
+        </tr>
+      </thead>
+      <tbody data-link="row" class="rowlink">
+        <% @categories.each do |category| %>
+          <tr>
+            <td class="rowlink-skip text-center">
+              <div class="checkbox">
+                <label>
+                  <%= check_box_tag "category[]", category.id %>
+                </label>
+              </div>
+            </td>
+            <td>
+              <%= link_to category.name, edit_question_set_category_path(category.id) %>
+            </td>
+            <td class="rowlink-skip text-center">
+              <% if category.enabled %>
+                <div>
+                  <i class="glyphicon glyphicon-ok"></i>
+                </div>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>

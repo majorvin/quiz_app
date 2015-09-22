@@ -1,67 +1,71 @@
-<div ng-controller="UserController">
-  <script>
-    <%= render "user_service.js.erb" %>
-  </script>
+<ul class="breadcrumb">
+  <li><a href="/">Home</a></li>
+  <li><a href="/users">Users</a></li>
+  <li class="active">User <%= @user.id %></li>
+</ul>
 
-  <ul class="breadcrumb">
-    <li><a href="/">Home</a></li>
-    <li><a href="/users">Users</a></li>
-    <li class="active">User #{{user.id}}</li>
-  </ul>
+<section id="loginBox">
+  <%= form_for(@user) do |f| %>
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="mdi-communication-email"></i>
+      </span>
+      <%= f.email_field :email, class: "form-control floating-label", placeholder: "Email", autofocus: "true", required: "true" %>
+    </div>
 
-  <form ng-submit="submit()">
-    <section id="loginBox">
-      <div class="input-group">
-        <span class="input-group-addon">
-          <i class="mdi-communication-email"></i>
-        </span>
-        <input type="email" class= "form-control floating-label" placeholder= "Email" ng-model="user.email" autofocus required>
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="mdi-social-person"></i>
+      </span>
+      <%= f.text_field :first_name, class: "form-control floating-label", placeholder: "First Name", required: "true"  %>
+    </div>
+
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="mdi-social-person"></i>
+      </span>
+
+      <%= f.text_field :last_name, class: "form-control floating-label", placeholder: "Last Name", required: "true" %>
+    </div>
+
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="mdi-social-group"></i>
+      </span>
+
+      <%= f.text_field :team, class: "form-control floating-label", placeholder: "Team/Department" %>
+    </div>
+
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="mdi-av-recent-actors"></i>
+      </span>
+
+      <%= f.text_field :position, class: "form-control floating-label", placeholder: "Position/Role" %>
+    </div>
+
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="mdi-social-school"></i>
+      </span>
+      <%= f.select "track_id", Certification::Track.enabled.collect { |t| [t.name,t.id] }, { include_blank: 'Please select Certification Track'}, class: "form-control", required: true %>
+      <small>Certification Track</small>
+    </div>
+
+    <div class="col-sm-offset-2 col-xs-offset-2">
+      <div class="togglebutton">
+        <label>
+          <%= f.check_box :admin %> Admin
+        </label>
       </div>
 
-      <div class="input-group">
-        <span class="input-group-addon">
-          <i class="mdi-social-person"></i>
-        </span>
-        <input type="text" class= "form-control floating-label" placeholder= "First Name" ng-model="user.first_name" required>
+      <div class="togglebutton">
+        <label>
+          <%= check_box_tag :deleted_at, 1, @user.deleted_at.nil? ? false : true %> Locked?
+        </label>
       </div>
+    </div>
 
-      <div class="input-group">
-        <span class="input-group-addon">
-          <i class="mdi-social-person"></i>
-        </span>
-        <input type="text" class= "form-control floating-label" placeholder= "Last Name" ng-model="user.last_name" required>
-      </div>
-
-      <div class="input-group">
-        <span class="input-group-addon">
-          <i class="mdi-social-group"></i>
-        </span>
-        <input type="text" class= "form-control floating-label" placeholder= "Team/Department" ng-model="user.team">
-      </div>
-
-      <div class="input-group">
-        <span class="input-group-addon">
-          <i class="mdi-av-recent-actors"></i>
-        </span>
-
-        <input type="text" class= "form-control floating-label" placeholder= "Position/Role" ng-model="user.position">
-      </div>
-
-      <div class="col-sm-offset-2 col-xs-offset-2">
-        <div class="togglebutton">
-          <label>
-            <input type="checkbox" ng-model="user.admin"> Admin
-          </label>
-        </div>
-
-        <div class="togglebutton">
-          <label>
-            <input type="checkbox" ng-model="user.deleted_at"> Locked?
-          </label>
-        </div>
-      </div>
-
-      <button class="btn btn-block btn-primary waves-effect waves-light" type="submit" ng-click="submit()">Update</button>
-    </section>
-  </form>
-</div>
+    <%= f.submit "Update", class: "btn btn-block btn-primary waves-effect waves-light" %>
+  <% end %>
+</section>

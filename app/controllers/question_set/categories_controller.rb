@@ -71,7 +71,8 @@ class QuestionSet::CategoriesController < ApplicationController
   end
 
   def exam_list
-    @active = QuestionSet::Category.active
+    @track = current_user.track
+    @active = @track.categories.active
     @enabled = @active.enabled.where_name_like(params[:keywords])
     @page = (params[:page] || 0).to_i
     # TODO change the page size or create pagination

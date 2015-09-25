@@ -1,5 +1,17 @@
 Rails.application.routes.draw do
   devise_for :users, :controllers => { registrations: 'registrations' }
+
+  namespace :certification do
+    resources :tracks do
+      resources :categories, only: [:new] do
+        collection do
+          put "batch_update"
+          put "batch_destroy"
+        end
+      end
+    end
+  end
+
   resources :users, only: [:index, :edit, :update] do
     get 'results'
   end

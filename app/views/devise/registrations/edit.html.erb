@@ -44,6 +44,14 @@
       <%= f.text_field :position, class: "form-control floating-label", placeholder: "Position/Role" %>
     </div>
 
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="mdi-social-school"></i>
+      </span>
+      <%= f.select "track_id", Certification::Track.enabled.collect { |t| [t.name,t.id] }, { include_blank: 'Please select Certification Track'}, class: "form-control", required: true %>
+      <small>Certification Track</small>
+    </div>
+
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
       <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
     <% end %>

@@ -11,10 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150919211745) do
+ActiveRecord::Schema.define(version: 20150925185824) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "certification_tracks", force: :cascade do |t|
+    t.string   "name",                       null: false
+    t.boolean  "enabled",    default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  create_table "certification_tracks_categories", force: :cascade do |t|
+    t.integer "category_id", null: false
+    t.integer "track_id",    null: false
+  end
+
+  add_index "certification_tracks_categories", ["category_id", "track_id"], name: "certification_tracks_categories_index", using: :btree
 
   create_table "exam_choices", force: :cascade do |t|
     t.integer "question_id",                 null: false
@@ -93,11 +107,13 @@ ActiveRecord::Schema.define(version: 20150919211745) do
     t.string   "last_name"
     t.string   "team"
     t.string   "position"
+    t.integer  "track_id"
   end
 
   add_index "users", ["deleted_at"], name: "index_users_on_deleted_at", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["track_id"], name: "index_users_on_track_id", using: :btree
 
   add_foreign_key "question_set_choices", "question_set_questions", column: "question_id"
   add_foreign_key "question_set_questions", "question_set_categories", column: "category_id"

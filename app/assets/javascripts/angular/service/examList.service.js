@@ -8,7 +8,7 @@ function examListService($http) {
       return $http.post("/exam/list.json", params);
     },
 
-    /* this will find or create an exam and returns id */
+    //this will find or create an exam and returns id
     findExam: function(params) {
       return $http.get("/exam/lists/find.json", { params: params });
     },

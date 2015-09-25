@@ -1,0 +1,13 @@
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <tr>
+      <td style="width: 200px;"><b>Certification Track</b></td>
+      <td><%= @track.name %> <sup><%= link_to "(Edit)", edit_certification_track_path(@track) %></sup>
+      </td>
+    </tr>
+    <tr>
+      <td><b>Enabled</b></td>
+      <td><%= @track.enabled.to_s.capitalize %></td>
+    </tr>
+  </table>
+</div>

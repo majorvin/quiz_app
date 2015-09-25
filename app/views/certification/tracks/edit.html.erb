@@ -1,0 +1,7 @@
+<%= render partial: "breadcrumbs" %>
+
+<br />
+
+<%= form_for(@track, html: { name: "form", class: "form-horizontal" }) do |f| %>
+  <%= render partial: "form", locals: { f: f} %>
+<% end %>

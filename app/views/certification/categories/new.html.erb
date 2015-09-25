@@ -1,0 +1,56 @@
+<ul class="breadcrumb">
+  <li><a href="/">Home</a></li>
+  <li><%= link_to "Certification Track", certification_tracks_path %></li>
+  <li class="active"><%= link_to "Track #" %></li>
+  <li class="active">Adding Categories</li>
+</ul>
+
+<%= render partial: "certification/tracks/track_header" %>
+
+<%= form_for(@track, url: batch_update_certification_track_categories_path(@track), method: :put) do |f|%>
+
+  <%= f.submit "Add to my category", class: "btn btn-primary btn-sm" %>
+  <%= link_to "Cancel", :back, class: "btn btn-warning btn-sm" %>
+
+  <div class="table-responsive">
+    <table class="table table-striped table-hover table-bordered">
+      <thead>
+        <tr>
+          <th colspan="3" class="text-center">Categories</th>
+        </tr>
+        <tr>
+          <th style="width: 60px;"></th>
+          <th>Name</th>
+          <th style="width: 60px;">Enabled</th>
+        </tr>
+      </thead>
+      <tbody data-link="row" class="rowlink">
+        <% @categories.each do |category| %>
+          <tr>
+            <td class="rowlink-skip text-center">
+              <% if @track.categories.include?(category) %>
+                <i class="mdi-toggle-check-box"></i>
+              <% else %>
+                <div class="checkbox">
+                  <label>
+                    <%= check_box_tag "category[]", category.id %>
+                  </label>
+                </div>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to category.name, edit_question_set_category_path(category.id) %>
+            </td>
+            <td class="rowlink-skip text-center">
+              <% if category.enabled %>
+                <div>
+                  <i class="glyphicon glyphicon-ok"></i>
+                </div>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>

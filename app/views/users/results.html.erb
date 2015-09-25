@@ -1,62 +1,55 @@
-<div ng-controller="UserResultController">
-  <script>
-    <%= render "user_service.js.erb" %>
-  </script>
+<ul class="breadcrumb">
+  <li><a href="/">Home</a></li>
+  <li><a href="/users">Users</a></li>
+  <li class="active">Results</li>
+</ul>
 
-  <ul class="breadcrumb">
-    <li><a href="/">Home</a></li>
-    <li><a href="/users">Users</a></li>
-    <li class="active">Results</li>
-  </ul>
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <tr>
+      <td><b>First Name</b></td>
+      <td><%= @user.first_name %></td>
+    </tr>
+    <tr>
+      <td><b>Last Name</b></td>
+      <td><%= @user.last_name %></td>
+    </tr>
+    <tr>
+      <td><b>Email Address</b></td>
+      <td><%= @user.email %></td>
+    </tr>
+  </table>
+</div>
 
-  <div class="table-responsive">
-    <table class="table table-bordered">
+<hr />
+
+<div class="table-responsive">
+  <table class="table table-striped table-hover table-bordered">
+    <thead>
       <tr>
-        <td><b>First Name</b></td>
-        <td><%= @user.first_name %></td>
+        <th>Quiz Name</th>
+        <th style="width: 100px;">Score</th>
+        <th style="width: 200px;">Completed At</th>
+        <th style="width: 100px;">Action</th>
       </tr>
-      <tr>
-        <td><b>Last Name</b></td>
-        <td><%= @user.last_name %></td>
-      </tr>
-      <tr>
-        <td><b>Email Address</b></td>
-        <td><%= @user.email %></td>
-      </tr>
-    </table>
-  </div>
-
-  <hr />
-
-  <div class="table-responsive">
-    <table class="table table-striped table-hover table-bordered">
-      <thead>
+    </thead>
+    <tbody>
+      <% @exams.each do |exam| %>
         <tr>
-          <th>Quiz Name</th>
-          <th style="width: 100px;">Score</th>
-          <th style="width: 180px;">Completed At</th>
-          <th style="width: 100px;">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="exam in exams">
-          <td>
-            {{exam.name}}
-          </td>
+          <td><%= exam.category.name %></td>
           <td class="text-center">
-            <div ng-class="{'text-success': examPassed(exam), 'text-warning': !examPassed(exam)}">
-              <b>{{showGrade(exam)}} </b>
+            <div class="<%= exam.passed? ? 'text-primary' : 'text-warning' %>">
+              <%= number_to_percentage(exam.grade, precision: 2) %>
             </div>
           </td>
           <td class="text-center">
-            {{exam.completed_at | date: 'medium'}}
+            <%= exam.completed_at.try(:to_s, :long) %>
           </td>
           <td class="text-center">
-            <a ng-href="/exam/lists/{{exam.id}}">View</a>
+            <%= link_to "View", exam_list_path(exam) %>
           </td>
         </tr>
-      </tbody>
-    </table>
-  </div>
+      <% end %>
+    </tbody>
+  </table>
 </div>
-

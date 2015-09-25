@@ -5,12 +5,14 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-User.create(email: "majorvin@example.com", first_name: "First", last_name: "Last", password: "11111111", admin: true)
+Certification::Track.create(name: "Track #1", enabled: true)
 
-for i in 1..50
-  User.create(email: "test-#{i}@email.com", first_name: "First", last_name: "Last", password: "11111111")
-  puts "Creating User - #{i}"
-end
+User.create(email: "majorvin@example.com", first_name: "First", last_name: "Last", password: "11111111", admin: true, track_id: 1)
+
+# for i in 1..50
+#   User.create(email: "test-#{i}@email.com", first_name: "First", last_name: "Last", password: "11111111")
+#   puts "Creating User - #{i}"
+# end
 
 for i in 0..50
   params = { category: {
@@ -38,3 +40,4 @@ for i in 0..50
 
   puts "Question Category ##{i} is created."
 end
+

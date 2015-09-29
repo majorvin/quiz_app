@@ -1,14 +1,37 @@
 angular.module('quizzer').controller('QuestionController', QuestionController);
 
-
-function QuestionController($scope, $modalInstance, $window, categoryId, question, questionService) {
-  preFillForm();
-
+function QuestionController($scope, $window, questionService) {
   var choiceCounter = 2;
+  var questionId = "";
+  var categoryId = "";
 
-  $scope.categoryId = categoryId;
-  $scope.errors = [];
-  $scope.showError = false;
+  $scope.init = function(cId, qId) {
+    categoryId = cId;
+    questionId = qId;
+
+    if (questionId === "")
+    {
+      $scope.choices = [
+        { text: "", answer: true },
+        { text: "", answer: false }
+      ];
+      $scope.selectedChoice = $scope.choices[0];
+
+    } else {
+      questionService.getQuestion(categoryId, questionId)
+        .then(function(response) {
+          $scope.text =  response.data.question.text;
+          $scope.choices = response.data.question.choices;
+
+          // Set the radio box to be selected
+          angular.forEach($scope.choices, function(c) {
+            if (c.answer === true) {
+              $scope.selectedChoice = c;
+            }
+          });
+        });
+    }
+  };
 
   $scope.hideDeletedChoice = function(choice) {
     return !choice._destroy;
@@ -35,15 +58,15 @@ function QuestionController($scope, $modalInstance, $window, categoryId, questio
     params = {
       question: {
         text: $scope.text,
-        category_id: $scope.categoryId,
+        category_id: categoryId,
         choices_attributes: $scope.choices
       }
     };
 
-    if (angular.isUndefined(question)) {
+    if (questionId === "") {
       create(params)
     } else {
-      params.question.id = question.id;
+      params.question.id = questionId;
       update(params);
     }
   };
@@ -56,54 +79,19 @@ function QuestionController($scope, $modalInstance, $window, categoryId, questio
     choice.answer = true; //set the clicked one to true
   };
 
-  $scope.cancel = function () {
-    $modalInstance.dismiss('cancel');
-  };
-
-  function preFillForm() {
-    if (angular.isDefined(question)) {
-
-      $scope.title = "Update Question";
-      $scope.text =  question.text;
-      $scope.choices = question.choices;
-
-      // Set the radio box to be selected
-      angular.forEach($scope.choices, function(c) {
-        if (c.answer === true) {
-          $scope.selectedChoice = c;
-        }
-      });
-
-    }
-    else {
-      $scope.title = "Create Question";
-      $scope.choices = [
-        { text: "", answer: true },
-        { text: "", answer: false }
-      ];
-      $scope.selectedChoice = $scope.choices[0];
-    }
-  };
-
   function create(params) {
     questionService.createQuestion(params)
       .then(function() {
-        $modalInstance.close("ok");
+        $window.history.back();
         $window.location.reload();
-      }, function(response) {
-        $scope.showError = true;
-        $scope.errors = response.data.errors;
       });
   };
 
   function update(params) {
-    questionService.updateQuestion(question.id, params)
+    questionService.updateQuestion(params)
       .then(function() {
-        $modalInstance.close("ok");
+        $window.history.back();
         $window.location.reload();
-      }, function(response) {
-        $scope.showError = true;
-        $scope.errors = response.data.errors;
       });
   };
 };

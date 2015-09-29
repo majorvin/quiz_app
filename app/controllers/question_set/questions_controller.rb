@@ -2,13 +2,24 @@ class QuestionSet::QuestionsController < ApplicationController
   before_filter :authorized?
 
   def index
-    @active     = QuestionSet::Question.active
-    @category_questions = @active.by_category_id(params[:category_id]).where_text_like(params[:keywords])
-    @page       = (params[:page] || 0).to_i
-    @page_size  = (params[:page_size] || 25).to_i
-    @questions  = @category_questions.offset(@page_size * @page).limit(@page_size).order("text")
+    @category = QuestionSet::Category.find(params[:category_id])
+    @q = @category.questions.active.ransack(params[:q])
+    @questions = @q.result.order("text").page(params[:page])
+  end
 
-    render json: @questions, meta: { total_count: @category_questions.count }
+  def search
+    index
+    render :index
+  end
+
+  def new
+    @category = QuestionSet::Category.find(params[:category_id])
+    @question = @category.questions.new
+  end
+
+  def edit
+    @category = QuestionSet::Category.find(params[:category_id])
+    @question = QuestionSet::Question.find(params[:id])
   end
 
   def show
@@ -16,9 +27,9 @@ class QuestionSet::QuestionsController < ApplicationController
   end
 
   def create
-    @question =  QuestionSet::Question.create(question_params)
+    @category = QuestionSet::Category.find(params[:category_id])
 
-    if @question.save
+    if QuestionSet::Question.create(question_params)
       flash[:notice] = 'Question was successfully added.'
       render nothing: true, status: 204
     else
@@ -39,13 +50,14 @@ class QuestionSet::QuestionsController < ApplicationController
 
   # Archive a question
   def archive
+    @category = QuestionSet::Category.find(params[:category_id])
     @question = QuestionSet::Question.find(params[:id])
 
     if @question.update_attributes(archived_at: DateTime.now)
       flash[:notice] = 'Question was successfully deleted.'
-      render nothing: true, status: 204
+      redirect_to question_set_category_questions_path(@category)
     else
-      render json: { errors: @question.errors.to_a }, status: :unprocessable_entity
+      render "index"
     end
   end
 

@@ -1,0 +1,17 @@
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <tr>
+      <td style="width: 200px;"><b>Category</b></td>
+      <td><%= @category.name %> <sup><%= link_to "(Edit)", edit_question_set_category_path(@category) %></sup>
+      </td>
+    </tr>
+    <tr>
+      <td><b>Max Questions</b></td>
+      <td><%= @category.max_question %></td>
+    </tr>
+    <tr>
+      <td><b>Enabled</b></td>
+      <td><%= @category.enabled.to_s.capitalize %></td>
+    </tr>
+  </table>
+</div>

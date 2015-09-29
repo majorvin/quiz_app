@@ -8,8 +8,4 @@ function CertificationTrackController($scope) {
       enabled: enabled
     };
   };
-
-  $scope.fieldIsValid = function(fieldName) {
-    return $scope.form[fieldName].$invalid && !$scope.form[fieldName].$pristine;
-  };
 };

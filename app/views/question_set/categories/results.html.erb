@@ -1,7 +1,7 @@
 <div ng-controller="ExamResultController" ng-init="init('<%= @category.id %>')">
   <ul class="breadcrumb">
     <li><a href="/">Home</a></li>
-    <li><a href="/available">Available Exams</a></li>
+    <li><%= link_to "Available Exams", available_path %></li>
     <li class="active">Results</li>
   </ul>
 

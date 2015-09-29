@@ -2,24 +2,17 @@ class QuestionSet::CategoriesController < ApplicationController
   before_filter :authorized?, except: [:exam_list, :results]
 
   def index
-    @active     = QuestionSet::Category.active.where_name_like(params[:keywords])
-    @page       = (params[:page] || 0).to_i
-    @page_size  = (params[:page_size] || 25).to_i
-    @categories = @active.offset(@page_size * @page).limit(@page_size).order("name")
-
-    respond_to do |format|
-      format.html
-      format.json { render json: @categories, meta: { total_count: @active.count } }
-    end
+    @q = QuestionSet::Category.active.ransack(params[:q])
+    @categories = @q.result.order("name").page(params[:page])
   end
 
   def show
     @category = QuestionSet::Category.find(params[:id])
-
-    render json: @category
+    @questions = @category.questions.order("text").page(params[:page])
   end
 
   def new
+    @category = QuestionSet::Category.new
   end
 
   def create
@@ -27,9 +20,9 @@ class QuestionSet::CategoriesController < ApplicationController
 
     if @category.save
       flash[:notice] = 'Category was successfully created.'
-      render json: { id: @category.id }
+      redirect_to question_set_category_questions_path(@category)
     else
-      render json: { errors: @category.errors.to_a }, status: :unprocessable_entity
+      render "new"
     end
   end
 
@@ -42,9 +35,9 @@ class QuestionSet::CategoriesController < ApplicationController
 
     if @category.update(category_params)
       flash[:notice] = 'Category was successfully updated.'
-      render nothing: true, status: 204
+      redirect_to question_set_category_questions_path(@category)
     else
-      render json: { errors: @category.errors.to_a }, status: :unprocessable_entity
+      render "edit"
     end
   end
 
@@ -54,9 +47,9 @@ class QuestionSet::CategoriesController < ApplicationController
 
     if @category.update_attributes(archived_at: DateTime.now)
       flash[:notice] = 'Category was successfully deleted.'
-      render nothing: true, status: 204
+      redirect_to question_set_categories_path
     else
-      render json: { errors: @category.errors.to_a }, status: :unprocessable_entity
+      render "index"
     end
   end
 
@@ -92,6 +85,6 @@ class QuestionSet::CategoriesController < ApplicationController
   private
 
   def category_params
-    params.require(:category).permit(:name, :max_question, :enabled)
+    params.require(:question_set_category).permit(:name, :max_question, :enabled)
   end
 end

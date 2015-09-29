@@ -31,14 +31,19 @@ Rails.application.routes.draw do
 
   namespace :question_set do
     resources :categories, only: [:index, :new, :create, :edit, :update, :show] do
+      resources :questions do
+
+        collection do
+          match 'search' => 'questions#search', via: [:get], as: :search
+        end
+
+        member do
+          put "archive"
+        end
+      end
+
       get "results"
 
-      member do
-        put "archive"
-      end
-    end
-
-    resources :questions, only: [:create, :show, :update, :index] do
       member do
         put "archive"
       end

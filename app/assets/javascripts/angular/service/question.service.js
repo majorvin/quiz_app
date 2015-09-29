@@ -4,24 +4,16 @@ questionservice.$inject = ["$http"];
 
 function questionservice($http) {
   return {
-    getCategoryQuestions: function(params) {
-      return $http.get("/question_set/questions.json", { params: params });
-    },
-
-    getQuestion: function(id) {
-      return $http.get("/question_set/questions/" + id + ".json");
+    getQuestion: function(categoryId, questionId) {
+      return $http.get("/question_set/categories/" + categoryId + "/questions/" + questionId + ".json");
     },
 
     createQuestion: function(params) {
-      return $http.post("/question_set/questions.json", params);
+      return $http.post("/question_set/categories/" + params.question.category_id + "/questions", params);
     },
 
     updateQuestion: function(question) {
-      return $http.put("/question_set/questions/" + params.question.id + ".json", params);
+      return $http.put("/question_set/categories/" + params.question.category_id + "/questions/" + params.question.id + ".json", params);
     },
-
-    archiveQuestion: function(id) {
-      return $http.put("/question_set/questions/" + id + "/archive.json");
-    }
   };
 };

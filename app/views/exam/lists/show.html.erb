@@ -37,14 +37,16 @@
           <th colspan="2" class="active">Summary</th>
         </tr>
       </thead>
-      <tr class="" ng-repeat="question in questions">
-        <td class="text-center">
-          {{$index + 1}}
-        </td>
-        <td class="text-center">
-          <button class="btn btn-flat bootstrap" ng-class="{'btn-success': question.value, 'btn-warning': !question.value}" ng-click="goTo($index)">{{showQuestionResult(question)}}</button>
-        </td>
-      </tr>
+      <tbody data-link="row" class="rowlink">
+        <tr ng-repeat="question in questions">
+          <td class="text-center">
+            <a ng-click="goTo($index)">{{$index + 1}}</a>
+          </td>
+          <td class="text-center">
+            <div ng-class="{'text-success': question.value, 'text-warning': !question.value}" ng-click="goTo($index)"><b>{{showQuestionResult(question)}}</b></div>
+          </td>
+        </tr>
+      </tbody>
     </table>
   </div>
 </div>

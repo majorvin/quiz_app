@@ -1,0 +1,12 @@
+<ul class="breadcrumb">
+  <li><a href="/">Home</a></li>
+  <li><%= link_to "Categories", question_set_categories_path %></li>
+  <li><%= link_to "Category ##{@category.id}", question_set_category_questions_path(@category) %></li>
+  <li class="active">
+    <% if @question.new_record? %>
+      New Question
+    <% else %>
+      Question #<%= @question.id %>
+    <% end %>
+  </li>
+</ul>

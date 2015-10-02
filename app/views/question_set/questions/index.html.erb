@@ -1,0 +1,53 @@
+<ul class="breadcrumb">
+  <li><a href="/">Home</a></li>
+  <li><%= link_to "Categories", question_set_categories_path %></li>
+  <li class="active">Category #<%= @category.id %></li>
+</ul>
+
+<%= render partial: "header" %>
+
+<h2>Questions</h2>
+<div class="row">
+  <div class="col-sm-9 col-xs-6 col-md-9">
+    <%= link_to "Add Question", new_question_set_category_question_path(@category), class: "btn btn-primary btn-sm" %>
+  </div>
+  <div class="col-sm-3 col-xs-6 col-md-3 ">
+    <%= search_form_for @q, url: search_question_set_category_questions_path do |f| %>
+      <%= f.search_field :text_cont, class: "form-control", placeholder: "Search" %>
+    <% end %>
+  </div>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped table-hover table-bordered">
+    <thead>
+      <tr>
+        <th>Text</th>
+        <th style="width: 50px;"></th>
+      </tr>
+    </thead>
+    <tbody data-link="row" class="rowlink">
+      <% @questions.each do |question| %>
+        <tr>
+          <td class="vert-align">
+            <%= link_to question.text, edit_question_set_category_question_path(@category, question), class: "btn bootstrap" %>
+          </td>
+          <td class="rowlink-skip text-center">
+            <%= link_to archive_question_set_category_question_path(@category, question), data: { confirm: "Are you sure?" }, class:"btn bootstrap", method: :put do %>
+              <i class="glyphicon glyphicon-trash text-primary"></i>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="row">
+  <div class="text-center">
+    <%= page_entries_info @questions %>
+  </div>
+  <div class="text-center">
+    <%= paginate @questions %>
+  </div>
+</div>

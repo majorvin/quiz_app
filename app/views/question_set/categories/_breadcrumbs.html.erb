@@ -1,0 +1,11 @@
+<ul class="breadcrumb">
+  <li><a href="/">Home</a></li>
+  <li><a href="/question_set/categories">Categories</a></li>
+  <li class="active">
+    <% if @category.new_record? %>
+      New Category
+    <% else %>
+      Category #<%= @category.id %>
+    <% end %>
+  </li>
+</ul>

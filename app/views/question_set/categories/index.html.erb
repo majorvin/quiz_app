@@ -1,71 +1,65 @@
-<div ng-controller="CategoryListController">
-  <ul class="breadcrumb">
-    <li><a href="/">Home</a></li>
-    <li class="active">Categories</li>
-  </ul>
-  <div class="row">
-    <div class="col-sm-9 col-xs-6 col-md-9">
-      <a href="/question_set/categories/new" class="btn btn-primary btn-sm">Add Category</a>
-    </div>
-    <div class="col-sm-3 col-xs-6 col-md-3 ">
-      <input type="search" class="form-control" placeholder="Search" name="searchTerm" id="searchTerm" ng-model="searchTerm" ng-change="search()">
-    </div>
+<ul class="breadcrumb">
+  <li><a href="/">Home</a></li>
+  <li class="active">Categories</li>
+</ul>
+
+<div class="row vertical-align">
+  <div class="col-sm-9 col-xs-6 col-md-9">
+    <%= link_to "Add Category", new_question_set_category_path(), class: "btn btn-primary btn-sm" %>
   </div>
 
-  <div class="table-responsive">
-    <table class="table table-striped table-hover table-bordered">
-      <thead>
+  <div class="col-sm-3 col-xs-6 col-md-3 vcenter">
+    <%= search_form_for @q do |f| %>
+      <%= f.search_field :name_cont, class: "form-control", placeholder: "Search" %>
+    <% end %>
+  </div>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped table-hover table-bordered">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th style="width: 10px;">Max</th>
+        <th style="width: 60px;">Enabled</th>
+        <th style="width: 100px;">Actions</th>
+      </tr>
+    </thead>
+    <tbody data-link="row" class="rowlink">
+      <% @categories.each do |category| %>
         <tr>
-          <th>Name</th>
-          <th style="width: 10px;">Max</th>
-          <th style="width: 60px;">Enabled</th>
-          <th style="width: 100px;">Actions</th>
-        </tr>
-      </thead>
-      <tbody data-link="row" class="rowlink">
-        <tr ng-repeat="category in categories">
           <td>
-            <a ng-href="/question_set/categories/{{category.id}}/edit">{{category.name}}</a>
+            <%= link_to category.name, question_set_category_questions_path(category) %>
           </td>
           <td>
             <a>
-              {{category.max_question}}
+              <%= category.max_question %>
             </a>
           </td>
           <td class="text-center">
-            <div ng-show="category.enabled">
+            <% if category.enabled %>
               <i class="glyphicon glyphicon-ok"></i>
-            </div>
+            <% end %>
           </td>
           <td class="rowlink-skip text-center vert-middle">
-            <a ng-href="/question_set/categories/{{category.id}}/edit" class="btn bootstrap">
+            <%= link_to edit_question_set_category_path(category.id), class: "btn bootstrap" do %>
               <i class="glyphicon glyphicon-edit text-primary"></i>
-            </a>
-            <a class="btn bootstrap" ng-click="archiveCategory(category.id)">
+            <% end %>
+            <%= link_to archive_question_set_category_path(category), method: :put, data: {confirm: "Are you sure?" }, class: "btn bootstrap" do %>
               <i class="glyphicon glyphicon-trash text-primary"></i>
-            </a>
+            <% end %>
           </td>
         </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="row">
-    <div class="text-center">
-      Showing {{showFrom()}} to {{showTo()}} of {{totalItems}} entries
-    </div>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
-    <div class="text-center">
-      <pagination
-        class="pagination-sm"
-        ng-model="currentPage"
-        boundary-links="true"
-        total-items="totalItems"
-        max-size="maxSize"
-        rotate="false"
-        items-per-page="numPerPage"
-        ng-change="pageChanged()"
-      >
-      </pagination>
-    </div>
+<div class="row">
+  <div class="text-center">
+    <%= page_entries_info @categories %>
+  </div>
+  <div class="text-center">
+    <%= paginate @categories %>
   </div>
 </div>

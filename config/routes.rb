@@ -50,5 +50,5 @@ Rails.application.routes.draw do
     end
   end
 
-  root "dashboard#index"
+  root "question_set/categories#exam_list"
 end
